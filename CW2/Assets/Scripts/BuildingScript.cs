@@ -32,6 +32,8 @@ public class BuildingScript : MonoBehaviour
                     {
                         chosenBuilding = building;
                         _collider = ColliderBuilding.ObjectCollider;
+                        buildings.Remove(building);
+                        break;
                     }
                 }
             }
@@ -47,11 +49,9 @@ public class BuildingScript : MonoBehaviour
     private void MoveObjectToMouse()
     {
         _collider.enabled = false;
-        if (Physics.Raycast(_ray, out _hit))
-        {
-            chosenBuilding.transform.position = _hit.point;
-            chosenBuilding.transform.rotation = Quaternion.FromToRotation(Vector3.up, _hit.normal);
-        }
+        if (!Physics.Raycast(_ray, out _hit)) return;
+        chosenBuilding.transform.position = _hit.point;
+        chosenBuilding.transform.rotation = Quaternion.FromToRotation(Vector3.up, _hit.normal);
     }
 
     private void PlaceObject()
