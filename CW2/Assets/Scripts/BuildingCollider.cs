@@ -5,4 +5,5 @@ using UnityEngine;
 public class BuildingCollider : MonoBehaviour
 {
     public Collider ObjectCollider => GetComponent<Collider>();
+    public Transform ParentObject => transform.parent;
 }

@@ -7,6 +7,7 @@ public class BuildingScript : MonoBehaviour
     private RaycastHit _hit;
     private Ray _ray;
     private Collider _collider;
+    private Transform _buildingParent;
     private BuildingCollider ColliderBuilding => chosenBuilding.GetComponent<BuildingCollider>();
     public GameObject chosenBuilding;
     [SerializeField] private new Camera cam;
@@ -28,13 +29,12 @@ public class BuildingScript : MonoBehaviour
             {
                 foreach (var building in buildings)
                 {
-                    if (building.transform == _hit.transform)
-                    {
-                        chosenBuilding = building;
-                        _collider = ColliderBuilding.ObjectCollider;
-                        buildings.Remove(building);
-                        break;
-                    }
+                    if (building.transform != _hit.transform) continue;
+                    chosenBuilding = building;
+                    _collider = ColliderBuilding.ObjectCollider;
+                    _buildingParent = ColliderBuilding.ParentObject;
+                    buildings.Remove(building);
+                    break;
                 }
             }
         }
@@ -50,8 +50,17 @@ public class BuildingScript : MonoBehaviour
     {
         _collider.enabled = false;
         if (!Physics.Raycast(_ray, out _hit)) return;
-        chosenBuilding.transform.position = _hit.point;
-        chosenBuilding.transform.rotation = Quaternion.FromToRotation(Vector3.up, _hit.normal);
+        _buildingParent.position = _hit.point;
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _buildingParent.transform.Rotate(0,15,0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            _buildingParent.transform.Rotate(0,-15,0);
+        }
+        //chosenBuilding.transform.position = _hit.point;
+        //chosenBuilding.transform.rotation = Quaternion.FromToRotation(Vector3.up, _hit.normal);
     }
 
     private void PlaceObject()
@@ -60,6 +69,7 @@ public class BuildingScript : MonoBehaviour
         {
             _collider.enabled = true;
             chosenBuilding = null;
+            _buildingParent = null;
         }
     }
 }
