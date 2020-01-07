@@ -1,6 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Rigidbody))]
 
 public class AiCharacter : MonoBehaviour, IInterface
 {
@@ -40,5 +45,12 @@ public class AiCharacter : MonoBehaviour, IInterface
             Destroy(this.gameObject);
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.GetComponent<HealthPickUp>()) return;
+        var pickUp = other.gameObject.GetComponent<HealthPickUp>();
+        health += pickUp.healthAmount;
+        pickUp.Destroy();
+    }
 }

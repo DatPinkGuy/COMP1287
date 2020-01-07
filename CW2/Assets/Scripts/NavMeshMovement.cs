@@ -32,7 +32,6 @@ public class NavMeshMovement : MonoBehaviour
                 }
                 if (!currentAgent) return;
                 currentAgent.destination = _hit.point;
-
             }
         }
     }
