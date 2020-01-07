@@ -1,5 +1,5 @@
 ﻿
-interface IInterface
+interface IAgent
 {
     void UseEnergy();
 

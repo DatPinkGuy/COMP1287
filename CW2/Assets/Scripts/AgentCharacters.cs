@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 
-public class AiCharacter : MonoBehaviour, IInterface
+public class AgentCharacters : MonoBehaviour, IAgent
 {
     public float health = 100;
     public float energy = 100;
@@ -23,7 +23,6 @@ public class AiCharacter : MonoBehaviour, IInterface
     // Update is called once per frame
     void Update()
     {
-        //UseEnergy();
         UseHealth();
         CheckStats();
     }

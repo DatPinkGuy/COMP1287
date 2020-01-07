@@ -8,6 +8,6 @@ public class HealthPickUp : MonoBehaviour
 
     public void Destroy()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }
