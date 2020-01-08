@@ -13,8 +13,8 @@ public class AgentCharacters : MonoBehaviour, IAgent
     public float maxHealth = 100;
     public float energy = 100;
     public float maxEnergy = 100;
-    [SerializeField] private float energyUsage = 10f;
-    [SerializeField] private float healthUsage = 1f;
+    [HideInInspector] public float energyUsage = 10f;
+    [HideInInspector] public float healthUsage = 1f;
 
     // Start is called before the first frame update
     void Start()
