@@ -1,8 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class AiCharacter : MonoBehaviour, IInterface
+[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(Rigidbody))]
+
+public class AgentCharacters : MonoBehaviour, IAgent
 {
     public float health = 100;
     public float energy = 100;
@@ -18,7 +23,6 @@ public class AiCharacter : MonoBehaviour, IInterface
     // Update is called once per frame
     void Update()
     {
-        //UseEnergy();
         UseHealth();
         CheckStats();
     }
@@ -40,5 +44,12 @@ public class AiCharacter : MonoBehaviour, IInterface
             Destroy(this.gameObject);
         }
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.gameObject.GetComponent<HealthPickUp>()) return;
+        var pickUp = other.gameObject.GetComponent<HealthPickUp>();
+        health += pickUp.healthAmount;
+        pickUp.Destroy();
+    }
 }
