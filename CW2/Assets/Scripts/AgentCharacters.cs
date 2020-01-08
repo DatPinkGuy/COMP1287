@@ -10,9 +10,11 @@ using UnityEngine.AI;
 public class AgentCharacters : MonoBehaviour, IAgent
 {
     public float health = 100;
+    public float maxHealth = 100;
     public float energy = 100;
-    [SerializeField] private float energyUsage = 10f;
-    [SerializeField] private float healthUsage = 1f;
+    public float maxEnergy = 100;
+    [HideInInspector] public float energyUsage = 10f;
+    [HideInInspector] public float healthUsage = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +45,9 @@ public class AgentCharacters : MonoBehaviour, IAgent
         {
             Destroy(this.gameObject);
         }
+
+        if (health > maxHealth) health = maxHealth;
+        if (energy > maxEnergy) energy = maxEnergy;
     }
 
     private void OnTriggerEnter(Collider other)
