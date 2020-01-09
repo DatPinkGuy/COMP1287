@@ -9,9 +9,10 @@ using UnityEngine.AI;
 
 public class AgentCharacters : MonoBehaviour, IAgent
 {
+    [Header("Agent Statistics")]
     public float health = 100;
-    public float maxHealth = 100;
     public float energy = 100;
+    public float maxHealth = 100;
     public float maxEnergy = 100;
     [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;

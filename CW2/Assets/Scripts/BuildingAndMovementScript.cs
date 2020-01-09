@@ -5,10 +5,7 @@ using UnityEngine.AI;
 
 public class BuildingAndMovementScript : MonoBehaviour
 {
-    private RaycastHit _hit;
-    private Ray _ray;
-    private Collider _collider;
-    private Transform _buildingParent;
+    [Header("Current Agent/Object selected")]
     public BuildingInfo chosenBuilding;
     public NavMeshAgent currentAgent;
     private enum Cycle
@@ -18,7 +15,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     }
     private Cycle _cycle;
     private SunMoon _sunMoon;
+    private RaycastHit _hit;
+    private Ray _ray;
+    private Collider _collider;
+    private Transform _buildingParent;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
+    [Header("Serialized Objects")]
     [SerializeField] private Camera cam;   
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
