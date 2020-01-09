@@ -11,6 +11,7 @@ public class BuildingInfo : MonoBehaviour
     public float neededAmount = 100f;
     public float currentAmount = 0f;
     public float buildSpeed = 10f;
+    public bool placed = false;
     private bool Built => neededAmount <= currentAmount;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
