@@ -44,7 +44,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     {
         if (energy <= 0 || health <= 0)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
 
         if (health > maxHealth) health = maxHealth;
