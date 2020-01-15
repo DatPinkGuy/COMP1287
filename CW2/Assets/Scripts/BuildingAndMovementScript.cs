@@ -18,7 +18,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     }
     private Cycle cycle;
     private SunMoon _sunMoon;
-    [SerializeField] private Camera cam;   
+//    [SerializeField] private Camera cam;   
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
@@ -37,7 +37,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     void Update()
     {
         BuildingCharacterLogic();
-        if (Input.GetKeyDown(KeyCode.C)) DayNightSwitch();
+        if (OVRInput.GetDown(OVRInput.Button.Two)) DayNightSwitch();
         DayNightCycle();
         if (chosenBuilding)
         {
@@ -73,10 +73,7 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void DayNightSwitch()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            cycle = cycle == Cycle.Day ? Cycle.Night : Cycle.Day;
-        }
+        cycle = cycle == Cycle.Day ? Cycle.Night : Cycle.Day;
     }
 
     private void DayNightCycle()
@@ -108,31 +105,31 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void BuildingCharacterLogic()
     {
-        _ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (Physics.Raycast(_ray, out _hit))
-            {
-                foreach (var building in buildings)
-                {
-                    if (building.ThisTransform != _hit.transform) continue;
-                    chosenBuilding = building;
-                    _collider = building.ObjectCollider;
-                    _buildingParent = building.ParentTransform;
-                    buildings.Remove(building);
-                    currentAgent = null;
-                    break;
-                }
-                foreach (var agent in agents)
-                {
-                    if (agent.transform != _hit.transform) continue;
-                    currentAgent = agent;
-                    return;
-                }
-                if (!currentAgent) return;
-                currentAgent.destination = _hit.point;
-            } 
-        }
+//        _ray = cam.ScreenPointToRay(Input.mousePosition);
+//        if (Input.GetMouseButtonDown(0))
+//        {
+//            if (Physics.Raycast(_ray, out _hit))
+//            {
+//                foreach (var building in buildings)
+//                {
+//                    if (building.ThisTransform != _hit.transform) continue;
+//                    chosenBuilding = building;
+//                    _collider = building.ObjectCollider;
+//                    _buildingParent = building.ParentTransform;
+//                    buildings.Remove(building);
+//                    currentAgent = null;
+//                    break;
+//                }
+//                foreach (var agent in agents)
+//                {
+//                    if (agent.transform != _hit.transform) continue;
+//                    currentAgent = agent;
+//                    return;
+//                }
+//                if (!currentAgent) return;
+//                currentAgent.destination = _hit.point;
+//            } 
+//        }
        
     }
 }
