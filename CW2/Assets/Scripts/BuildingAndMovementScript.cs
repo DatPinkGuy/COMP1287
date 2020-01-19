@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class BuildingAndMovementScript : MonoBehaviour
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
+    [SerializeField] private Text currencyText;
+    [HideInInspector] public List<AgentCharacters> PublicAgents => agentCharacter;
+    [HideInInspector] public int currencyAmount;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +37,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
         agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
-        _cycle = Cycle.Day;
+        _cycle = Cycle.Night;
     }
     
     // Update is called once per frame
@@ -47,6 +51,7 @@ public class BuildingAndMovementScript : MonoBehaviour
             MoveObjectToMouse();
             PlaceObject();
         }
+        currencyText.text = currencyAmount.ToString();
     }
     
     private void MoveObjectToMouse()
