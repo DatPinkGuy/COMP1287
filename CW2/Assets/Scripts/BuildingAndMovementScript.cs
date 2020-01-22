@@ -23,7 +23,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Transform HandTransform => hand.transform;
     private int _layerMask = 1 << 8;
     [SerializeField] private Hand hand;
-    [SerializeField] private LineRenderer _lineRenderer;
+    [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
@@ -56,17 +56,22 @@ public class BuildingAndMovementScript : MonoBehaviour
     private void MoveObjectToRaycast()
     {
         _collider.enabled = false;
-        if (!Physics.Raycast(_ray, out _hit,5, _layerMask)) return;
-        _buildingParent.position = _hit.point;
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickUp))
+        if (Physics.Raycast(_ray, out _hit, 5, _layerMask))
         {
+            _buildingParent.position = _hit.point;
+        }
+        else
+        {
+             _buildingParent.position = HandTransform.forward + HandTransform.position;
+        }
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickUp)) 
+        { 
             _buildingParent.transform.Rotate(0,15,0);
         }
-        else if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickDown))
-        {
+        else if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickDown)) 
+        { 
             _buildingParent.transform.Rotate(0, -15, 0);
         }
-
     }
 
     private void PlaceObject()
@@ -144,13 +149,13 @@ public class BuildingAndMovementScript : MonoBehaviour
     {
         if (OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger))
         {
-            _lineRenderer.enabled = true;
-            _lineRenderer.SetPosition(0, HandTransform.position);
-            _lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, HandTransform.position);
+            lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
         }
         else
         {
-            _lineRenderer.enabled = false;
+            lineRenderer.enabled = false;
         }
 
     }
