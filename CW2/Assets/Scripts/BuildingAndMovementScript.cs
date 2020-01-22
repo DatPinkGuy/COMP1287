@@ -25,7 +25,6 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Transform HandTransform => hand.transform;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
     [Header("Serialized Objects")]
-    [SerializeField] private Camera cam;   
     [SerializeField] private Hand hand;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private List<NavMeshAgent> agents;
