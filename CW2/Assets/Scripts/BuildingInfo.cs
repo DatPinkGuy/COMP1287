@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class BuildingInfo : MonoBehaviour
 {
-    public Collider ObjectCollider => GetComponent<Collider>();
-    public Transform ParentTransform => transform.parent;
-    public Transform ThisTransform => gameObject.transform;
+    [Header("Building Information")]
     public float neededAmount = 100f;
     public float currentAmount = 0f;
     public float buildSpeed = 10f;
+    public bool placed = false;
+    public Collider ObjectCollider => GetComponent<Collider>();
+    public Transform ParentTransform => transform.parent;
+    public Transform ThisTransform => gameObject.transform;
     private bool Built => neededAmount <= currentAmount;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;

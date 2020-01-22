@@ -7,10 +7,7 @@ using UnityEngine.AI;
 
 public class BuildingAndMovementScript : MonoBehaviour
 {
-    private RaycastHit _hit;
-    private Ray _ray;
-    private Collider _collider;
-    private Transform _buildingParent;
+    [Header("Current Agent/Object selected")]
     public BuildingInfo chosenBuilding;
     public NavMeshAgent currentAgent;
     private enum Cycle
@@ -20,8 +17,15 @@ public class BuildingAndMovementScript : MonoBehaviour
     }
     private Cycle _cycle;
     private SunMoon _sunMoon;
-    private Transform HandTransform => hand.transform;
+    private RaycastHit _hit;
+    private Ray _ray;
+    private Collider _collider;
+    private Transform _buildingParent;
     private int _layerMask = 1 << 8;
+    private Transform HandTransform => hand.transform;
+    private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
+    [Header("Serialized Objects")]
+    [SerializeField] private Camera cam;   
     [SerializeField] private Hand hand;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private List<NavMeshAgent> agents;
@@ -72,6 +76,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         { 
             _buildingParent.transform.Rotate(0, -15, 0);
         }
+
     }
 
     private void PlaceObject()
@@ -79,6 +84,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         if (chosenBuilding && OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
         {
             _collider.enabled = true;
+            chosenBuilding.placed = true;
             chosenBuilding = null;
             _buildingParent = null;
         }
@@ -126,12 +132,13 @@ public class BuildingAndMovementScript : MonoBehaviour
                 foreach (var building in buildings)
                 {
                     if (building.ThisTransform != _hit.transform) continue;
+                    if (building.placed != false) continue;
                     chosenBuilding = building;
                     _collider = building.ObjectCollider;
                     _buildingParent = building.ParentTransform;
-                    buildings.Remove(building);
                     currentAgent = null;
                     break;
+
                 }
                 foreach (var agent in agents)
                 {
@@ -140,7 +147,8 @@ public class BuildingAndMovementScript : MonoBehaviour
                     return;
                 }
                 if (!currentAgent) return;
-                currentAgent.destination = _hit.point;
+                if (PressedBuilding) currentAgent.destination = PressedBuilding.ParentTransform.position;
+                else currentAgent.destination = _hit.point;
             }
         }
     }
