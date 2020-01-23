@@ -22,10 +22,13 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Collider _collider;
     private Transform _buildingParent;
     private int _layerMask = 1 << 8;
-    private Transform HandTransform => hand.transform;
+    private Transform HandTransform => rightHand.transform;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
+    private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     [Header("Serialized Objects")]
-    [SerializeField] private Hand hand;
+    [SerializeField] private Hand rightHand;
+    [SerializeField] private Hand leftHand;
+    [SerializeField] private Canvas canvas;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
@@ -35,6 +38,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     void Start()
     {
         _layerMask = ~_layerMask;
+        canvas.enabled = false;
         _sunMoon = FindObjectOfType<SunMoon>();
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
         agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
@@ -46,6 +50,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     void Update()
     {
         DrawRaycasts();
+        OpenMenu();
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Two)) DayNightSwitch();
         DayNightCycle();
@@ -59,7 +64,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private void MoveObjectToRaycast()
     {
         _collider.enabled = false;
-        if (Physics.Raycast(_ray, out _hit, 5, _layerMask))
+        if (Physics.Raycast(_ray, out _hit, 1, _layerMask))
         {
             _buildingParent.position = _hit.point;
         }
@@ -174,6 +179,17 @@ public class BuildingAndMovementScript : MonoBehaviour
         {
             lineRenderer.enabled = false;
         }
+    }
 
+    private void OpenMenu()
+    {
+        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 10 && HandRotation.x < 40)
+        {
+            canvas.enabled = true;
+        }
+        else
+        {
+            canvas.enabled = false;
+        }
     }
 }
