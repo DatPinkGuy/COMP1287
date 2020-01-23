@@ -126,7 +126,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         _ray = new Ray(HandTransform.position,HandTransform.forward);
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            if (Physics.Raycast(_ray, out _hit,5, _layerMask))
+            if (Physics.Raycast(_ray, out _hit,1, _layerMask))
             {
                 foreach (var building in buildings)
                 {
@@ -156,9 +156,19 @@ public class BuildingAndMovementScript : MonoBehaviour
     {
         if (OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger))
         {
+            _ray = new Ray(HandTransform.position,HandTransform.forward);
+            Physics.Raycast(_ray, out _hit, 1, _layerMask);
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, HandTransform.position);
-            lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
+            if(_hit.collider)
+            {
+                lineRenderer.SetPosition(1, _hit.point);
+            }
+            else
+            {
+                lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
+            }
+            
         }
         else
         {
