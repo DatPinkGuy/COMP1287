@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using OVRTouchSample;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Ray _ray;
     private Collider _collider;
     private Transform _buildingParent;
+    private int _currency;
     private int _layerMask = 1 << 8;
     private Transform HandTransform => rightHand.transform;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
@@ -33,10 +35,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
+    [SerializeField] private Text currencyText;
 
     // Start is called before the first frame update
     void Start()
     {
+        currencyText.text = _currency.ToString();
         _layerMask = ~_layerMask;
         canvas.enabled = false;
         _sunMoon = FindObjectOfType<SunMoon>();
@@ -183,7 +187,7 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void OpenMenu()
     {
-        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 10 && HandRotation.x < 40)
+        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40)
         {
             canvas.enabled = true;
         }
@@ -191,5 +195,10 @@ public class BuildingAndMovementScript : MonoBehaviour
         {
             canvas.enabled = false;
         }
+    }
+
+    private void UpdateCurrency()
+    {
+        currencyText.text = _currency.ToString();
     }
 }
