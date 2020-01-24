@@ -113,7 +113,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 1
     manualCellSize: 1
-    cellSize: 0.01
+    cellSize: 0.015
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -4015,6 +4015,9 @@ MonoBehaviour:
   currentAmount: 0
   buildSpeed: 10
   placed: 0
+  _materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
   agents: []
   buildingAgents: []
 --- !u!65 &1507046187
@@ -4664,7 +4667,7 @@ PrefabInstance:
     - target: {fileID: 114043904411177872, guid: a9d2de84afb308a4796cc671d3432b4d,
         type: 3}
       propertyPath: joyPadClickButton
-      value: 2097153
+      value: 2097152
       objectReference: {fileID: 0}
     - target: {fileID: 114043904411177872, guid: a9d2de84afb308a4796cc671d3432b4d,
         type: 3}
@@ -5182,6 +5185,9 @@ MonoBehaviour:
   currentAmount: 0
   buildSpeed: 10
   placed: 0
+  _materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
   agents: []
   buildingAgents: []
 --- !u!65 &1940062768

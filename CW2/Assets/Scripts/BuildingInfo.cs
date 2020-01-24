@@ -13,12 +13,16 @@ public class BuildingInfo : MonoBehaviour
     public Collider ObjectCollider => GetComponent<Collider>();
     public Transform ParentTransform => transform.parent;
     public Transform ThisTransform => gameObject.transform;
-    private bool Built => neededAmount <= currentAmount;
+    public Transform ChildTransform => gameObject.GetComponentInChildren<Transform>();
+    private MeshRenderer ObjectMaterial => gameObject.GetComponent<MeshRenderer>();
+    public bool Built => neededAmount <= currentAmount;
+    [SerializeField] private Material[] _materials;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
 
     private void Start()
     {
+        ObjectMaterial.material = _materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
     }
 
@@ -49,7 +53,11 @@ public class BuildingInfo : MonoBehaviour
 
     private void CheckBuild()
     {
-        if (Built) return;
+        if (Built)
+        {
+            ObjectMaterial.material = _materials[0];
+            return;
+        }
         StartCoroutine(BuildingProcess());
     }
 
@@ -67,5 +75,9 @@ public class BuildingInfo : MonoBehaviour
         currentAmount += (buildSpeed*Time.deltaTime) * buildingAgents.Count;
         yield return null;
     }
-    
+
+    public void MaterialChange()
+    {
+        ObjectMaterial.material = _materials[1];
+    }
 }

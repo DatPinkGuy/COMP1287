@@ -154,6 +154,7 @@ public class BuildingAndMovementScript : MonoBehaviour
                     _collider = building.ObjectCollider;
                     _buildingParent = building.ParentTransform;
                     currentAgent = null;
+                    chosenBuilding.MaterialChange();
                     break;
 
                 }
@@ -164,8 +165,9 @@ public class BuildingAndMovementScript : MonoBehaviour
                     return;
                 }
                 if (!currentAgent) return;
-                if (PressedBuilding) currentAgent.destination = PressedBuilding.ParentTransform.position;
-                else currentAgent.destination = _hit.point;
+                StartCoroutine(AgentMovement());
+//                if (PressedBuilding) currentAgent.destination = PressedBuilding.ParentTransform.position;
+//                else currentAgent.destination = _hit.point;
             }
         }
     }
@@ -219,5 +221,24 @@ public class BuildingAndMovementScript : MonoBehaviour
             var timerRound = Math.Round(_timer, 2);
             timerText.text = timerRound.ToString();
         }
+    }
+
+    IEnumerator AgentMovement()
+    {
+        if (PressedBuilding)
+        {
+            currentAgent.destination = PressedBuilding.ParentTransform.position;
+            if (PressedBuilding.Built)
+            {
+                yield return new WaitForSeconds(2);
+//                if (currentAgent.transform.position == PressedBuilding.ParentTransform.position)
+//                {
+//                    currentAgent.transform.position = Vector3.Lerp(currentAgent.transform.position,
+//                PressedBuilding.ChildTransform.position, 5f);
+//                }
+            }
+        }
+        else currentAgent.destination = _hit.point;
+        yield return null;
     }
 }
