@@ -1919,7 +1919,7 @@ MonoBehaviour:
   agentCharacter: []
   buildings: []
   currencyText: {fileID: 1978302701}
-  currency: 0
+  timerText: {fileID: 307629683}
 --- !u!1 &366934352
 GameObject:
   m_ObjectHideFlags: 0

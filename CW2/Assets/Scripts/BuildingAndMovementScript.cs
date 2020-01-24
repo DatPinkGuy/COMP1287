@@ -27,6 +27,8 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Transform HandTransform => rightHand.transform;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
+    private bool _gameActive;
+    private float _timer;
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
@@ -36,10 +38,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
     [SerializeField] private Text currencyText;
+    [SerializeField] private Text timerText;
 
     // Start is called before the first frame update
     void Start()
     {
+        _gameActive = false;
         currencyText.text = _currency.ToString();
         _layerMask = ~_layerMask;
         canvas.enabled = false;
@@ -47,7 +51,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
         agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
-        _cycle = Cycle.Day;
+        _cycle = Cycle.Night;
     }
     
     // Update is called once per frame
@@ -56,13 +60,18 @@ public class BuildingAndMovementScript : MonoBehaviour
         DrawRaycasts();
         OpenMenu();
         BuildingCharacterLogic();
-        if (OVRInput.GetDown(OVRInput.Button.Two)) DayNightSwitch();
+        if (OVRInput.GetDown(OVRInput.Button.Two))
+        {
+            _gameActive = true;
+            DayNightSwitch();
+        }
         DayNightCycle();
         if (chosenBuilding)
         {
             MoveObjectToRaycast();
             PlaceObject();
         }
+        if(_gameActive) UpdateTimer();
     }
     
     private void MoveObjectToRaycast()
@@ -200,5 +209,15 @@ public class BuildingAndMovementScript : MonoBehaviour
     private void UpdateCurrency()
     {
         currencyText.text = _currency.ToString();
+    }
+
+    private void UpdateTimer()
+    {
+        if (_gameActive)
+        {
+            _timer += Time.deltaTime;
+            var timerRound = Math.Round(_timer, 2);
+            timerText.text = timerRound.ToString();
+        }
     }
 }
