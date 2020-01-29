@@ -3,7 +3,7 @@
 Copyright (c) Facebook Technologies, LLC and its affiliates. All rights reserved.  
 
 See SampleFramework license.txt for license terms.  Unless required by applicable law 
-or agreed to in writing, the sample code is provided ìAS ISî WITHOUT WARRANTIES OR 
+or agreed to in writing, the sample code is provided ‚ÄúAS IS‚Äù WITHOUT WARRANTIES OR 
 CONDITIONS OF ANY KIND, either express or implied.  See the license for specific 
 language governing permissions and limitations under the license.
 
@@ -52,6 +52,12 @@ public class LaserPointer : OVRCursor
     private Vector3 _endPoint;
     private bool _hitTarget;
     private LineRenderer lineRenderer;
+    //Added by Aleksandr
+    private Ray _ray;
+    private RaycastHit _hit;
+    private int _layerMask = 1 << 8;
+    public Vector3 MovingPosition => _startPoint + maxLength * _forward;
+    //
 
     private void Awake()
     {
@@ -60,6 +66,7 @@ public class LaserPointer : OVRCursor
 
     private void Start()
     {
+        _layerMask = ~_layerMask;
         if (cursorVisual) cursorVisual.SetActive(false);
     }
 
@@ -79,22 +86,36 @@ public class LaserPointer : OVRCursor
 
     private void LateUpdate()
     {
-        lineRenderer.SetPosition(0, _startPoint);
-        if (_hitTarget)
+        if (OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger))
         {
-            lineRenderer.SetPosition(1, _endPoint);
-            UpdateLaserBeam(_startPoint, _endPoint);
-            if (cursorVisual)
+            lineRenderer.enabled = true;
+            _ray = new Ray(_startPoint, _forward);
+            Physics.Raycast(_ray, out _hit, 10, _layerMask);
+            lineRenderer.SetPosition(0, _startPoint);
+            if (_hit.collider)
             {
-                cursorVisual.transform.position = _endPoint;
-                cursorVisual.SetActive(true);
+                lineRenderer.SetPosition(1, _hit.point);
+            }
+            else if (_hitTarget)
+            {
+                lineRenderer.SetPosition(1, _endPoint);
+                UpdateLaserBeam(_startPoint, _endPoint);
+                if (cursorVisual)
+                {
+                    cursorVisual.transform.position = _endPoint;
+                    cursorVisual.SetActive(true);
+                }
+            }
+            else
+            {
+                UpdateLaserBeam(_startPoint, _startPoint + maxLength * _forward);
+                lineRenderer.SetPosition(1, _startPoint + maxLength * _forward);
+                if (cursorVisual) cursorVisual.SetActive(false);
             }
         }
         else
         {
-            UpdateLaserBeam(_startPoint, _startPoint + maxLength * _forward);
-            lineRenderer.SetPosition(1, _startPoint + maxLength * _forward);
-            if (cursorVisual) cursorVisual.SetActive(false);
+            lineRenderer.enabled = false;
         }
     }
 

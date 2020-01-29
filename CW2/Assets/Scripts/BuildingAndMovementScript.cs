@@ -29,11 +29,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     private bool _gameActive;
     private float _timer;
+    private LaserPointer _laserPointer;
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private GameObject menuGameObject;
+    //[SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
@@ -46,8 +47,8 @@ public class BuildingAndMovementScript : MonoBehaviour
         _gameActive = false;
         currencyText.text = _currency.ToString();
         _layerMask = ~_layerMask;
-        canvas.enabled = false;
         _sunMoon = FindObjectOfType<SunMoon>();
+        _laserPointer = FindObjectOfType<LaserPointer>();
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
         agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
@@ -57,7 +58,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DrawRaycasts();
+        //DrawRaycasts();
         OpenMenu();
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Two))
@@ -77,13 +78,13 @@ public class BuildingAndMovementScript : MonoBehaviour
     private void MoveObjectToRaycast()
     {
         _collider.enabled = false;
-        if (Physics.Raycast(_ray, out _hit, 1, _layerMask))
+        if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
         {
             _buildingParent.position = _hit.point;
         }
         else
         {
-             _buildingParent.position = HandTransform.forward + HandTransform.position;
+            _buildingParent.position = _laserPointer.MovingPosition;
         }
         if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickUp)) 
         { 
@@ -144,7 +145,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         _ray = new Ray(HandTransform.position,HandTransform.forward);
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            if (Physics.Raycast(_ray, out _hit,1, _layerMask))
+            if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
             {
                 foreach (var building in buildings)
                 {
@@ -172,39 +173,39 @@ public class BuildingAndMovementScript : MonoBehaviour
         }
     }
 
-    private void DrawRaycasts()
-    {
-        if (OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger))
-        {
-            _ray = new Ray(HandTransform.position,HandTransform.forward);
-            Physics.Raycast(_ray, out _hit, 1, _layerMask);
-            lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, HandTransform.position);
-            if(_hit.collider)
-            {
-                lineRenderer.SetPosition(1, _hit.point);
-            }
-            else
-            {
-                lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
-            }
-            
-        }
-        else
-        {
-            lineRenderer.enabled = false;
-        }
-    }
+//    private void DrawRaycasts()
+//    {
+//        if (OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger))
+//        {
+//            _ray = new Ray(HandTransform.position,HandTransform.forward);
+//            Physics.Raycast(_ray, out _hit, 10, _layerMask);
+//            lineRenderer.enabled = true;
+//            lineRenderer.SetPosition(0, HandTransform.position);
+//            if(_hit.collider)
+//            {
+//                lineRenderer.SetPosition(1, _hit.point);
+//            }
+//            else
+//            {
+//                lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
+//            }
+//            
+//        }
+//        else
+//        {
+//            lineRenderer.enabled = false;
+//        }
+//    }
 
     private void OpenMenu()
     {
         if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40)
         {
-            canvas.enabled = true;
+            menuGameObject.SetActive(true);
         }
         else
         {
-            canvas.enabled = false;
+            menuGameObject.SetActive(false);
         }
     }
 
