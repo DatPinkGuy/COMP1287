@@ -13,16 +13,18 @@ public class BuildingInfo : MonoBehaviour
     public Collider ObjectCollider => GetComponent<Collider>();
     public Transform ParentTransform => transform.parent;
     public Transform ThisTransform => gameObject.transform;
-    public Transform ChildTransform => gameObject.GetComponentInChildren<Transform>();
     private MeshRenderer ObjectMaterial => gameObject.GetComponent<MeshRenderer>();
     public bool Built => neededAmount <= currentAmount;
-    [SerializeField] private Material[] _materials;
+    public Transform EndPoint => endPoint.transform;
+    [SerializeField] private Material[] materials;
+    [SerializeField] private GameObject endPoint;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
+    [HideInInspector] public AgentCharacters builtAgent;
 
     private void Start()
     {
-        ObjectMaterial.material = _materials[0];
+        ObjectMaterial.material = materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
     }
 
@@ -33,29 +35,42 @@ public class BuildingInfo : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (Built) return;
-        foreach (var agent in agents)
+        if (Built)
         {
-            if (other.gameObject != agent.gameObject) continue;
-            buildingAgents.Add(agent);
+            builtAgent = buildingAgents.Find(agent => agent.gameObject == other.gameObject);
+        }
+        else
+        {
+            foreach (var agent in agents)
+            {
+                if (other.gameObject != agent.gameObject) continue;
+                buildingAgents.Add(agent);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (Built) return;
-        foreach (var agent in agents)
+        if (Built)
         {
-            if (other.gameObject != agent.gameObject) continue;
-            buildingAgents.Remove(agent);
+            builtAgent = null;
         }
+        else
+        {
+            foreach (var agent in agents)
+            {
+                if (other.gameObject != agent.gameObject) continue;
+                buildingAgents.Remove(agent);
+            }
+        }
+        
     }
 
     private void CheckBuild()
     {
         if (Built)
         {
-            ObjectMaterial.material = _materials[0];
+            ObjectMaterial.material = materials[0];
             return;
         }
         StartCoroutine(BuildingProcess());
@@ -78,6 +93,6 @@ public class BuildingInfo : MonoBehaviour
 
     public void MaterialChange()
     {
-        ObjectMaterial.material = _materials[1];
+        ObjectMaterial.material = materials[1];
     }
 }

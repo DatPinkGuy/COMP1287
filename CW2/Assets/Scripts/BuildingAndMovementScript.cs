@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using OVRTouchSample;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -30,11 +31,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     private bool _gameActive;
     private float _timer;
     private LaserPointer _laserPointer;
+    private string minutes => Mathf.Floor(_timer / 60).ToString("00");
+    private string seconds => Mathf.Floor(_timer % 60).ToString("00");
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
     [SerializeField] private GameObject menuGameObject;
-    //[SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
@@ -120,7 +122,7 @@ public class BuildingAndMovementScript : MonoBehaviour
             case Cycle.Day:
                 foreach (var agent in agents)
                 {
-                    agent.enabled = true;
+                    //agent.enabled = true;
                 }
                 _sunMoon.ChangeToSun();
                 break;
@@ -133,7 +135,7 @@ public class BuildingAndMovementScript : MonoBehaviour
 
                 foreach (var agent in agents)
                 {
-                    agent.enabled = false;
+                    //agent.enabled = false;
                 }
                 _sunMoon.ChangeToMoon();
                 break;
@@ -167,35 +169,9 @@ public class BuildingAndMovementScript : MonoBehaviour
                 }
                 if (!currentAgent) return;
                 StartCoroutine(AgentMovement());
-//                if (PressedBuilding) currentAgent.destination = PressedBuilding.ParentTransform.position;
-//                else currentAgent.destination = _hit.point;
             }
         }
     }
-
-//    private void DrawRaycasts()
-//    {
-//        if (OVRInput.Get(OVRInput.Touch.SecondaryIndexTrigger))
-//        {
-//            _ray = new Ray(HandTransform.position,HandTransform.forward);
-//            Physics.Raycast(_ray, out _hit, 10, _layerMask);
-//            lineRenderer.enabled = true;
-//            lineRenderer.SetPosition(0, HandTransform.position);
-//            if(_hit.collider)
-//            {
-//                lineRenderer.SetPosition(1, _hit.point);
-//            }
-//            else
-//            {
-//                lineRenderer.SetPosition(1, HandTransform.forward + HandTransform.position);
-//            }
-//            
-//        }
-//        else
-//        {
-//            lineRenderer.enabled = false;
-//        }
-//    }
 
     private void OpenMenu()
     {
@@ -219,8 +195,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         if (_gameActive)
         {
             _timer += Time.deltaTime;
-            var timerRound = Math.Round(_timer, 2);
-            timerText.text = timerRound.ToString();
+            timerText.text = minutes + ":" + seconds;
         }
     }
 
@@ -231,12 +206,19 @@ public class BuildingAndMovementScript : MonoBehaviour
             currentAgent.destination = PressedBuilding.ParentTransform.position;
             if (PressedBuilding.Built)
             {
-                yield return new WaitForSeconds(2);
-//                if (currentAgent.transform.position == PressedBuilding.ParentTransform.position)
-//                {
-//                    currentAgent.transform.position = Vector3.Lerp(currentAgent.transform.position,
-//                PressedBuilding.ChildTransform.position, 5f);
-//                }
+                if (!PressedBuilding.builtAgent) yield return new WaitForSeconds(1);
+                currentAgent.ResetPath();
+                PressedBuilding.builtAgent.GetComponent<NavMeshAgent>().enabled = false;
+                if (PressedBuilding.builtAgent)
+                {
+                    while (currentAgent.transform.position != PressedBuilding.EndPoint.position)
+                    {
+                        currentAgent.transform.position = Vector3.MoveTowards(currentAgent.transform.position,
+                            PressedBuilding.EndPoint.position, 0.02f);
+                        yield return currentAgent.transform.position == PressedBuilding.EndPoint.position;
+                    }
+                    PressedBuilding.builtAgent.GetComponent<NavMeshAgent>().enabled = true;
+                }
             }
         }
         else currentAgent.destination = _hit.point;
