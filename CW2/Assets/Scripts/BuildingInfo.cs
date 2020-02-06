@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BuildingInfo : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class BuildingInfo : MonoBehaviour
     private MeshRenderer ObjectMaterial => gameObject.GetComponent<MeshRenderer>();
     public bool Built => neededAmount <= currentAmount;
     public Transform EndPoint => endPoint.transform;
+    private OffMeshLink _offMeshLink => GetComponent<OffMeshLink>();
     [SerializeField] private Material[] materials;
     [SerializeField] private GameObject endPoint;
     [HideInInspector] public List<AgentCharacters> agents;
@@ -26,6 +28,7 @@ public class BuildingInfo : MonoBehaviour
     {
         ObjectMaterial.material = materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
+        _offMeshLink.enabled = false;
     }
 
     private void Update()
@@ -71,6 +74,7 @@ public class BuildingInfo : MonoBehaviour
         if (Built)
         {
             ObjectMaterial.material = materials[0];
+            _offMeshLink.enabled = true;
             return;
         }
         StartCoroutine(BuildingProcess());

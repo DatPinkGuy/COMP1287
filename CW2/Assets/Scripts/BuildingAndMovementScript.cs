@@ -122,7 +122,7 @@ public class BuildingAndMovementScript : MonoBehaviour
             case Cycle.Day:
                 foreach (var agent in agents)
                 {
-                    //agent.enabled = true;
+                    agent.enabled = true;
                 }
                 _sunMoon.ChangeToSun();
                 break;
@@ -135,7 +135,7 @@ public class BuildingAndMovementScript : MonoBehaviour
 
                 foreach (var agent in agents)
                 {
-                    //agent.enabled = false;
+                    agent.enabled = false;
                 }
                 _sunMoon.ChangeToMoon();
                 break;
@@ -204,22 +204,6 @@ public class BuildingAndMovementScript : MonoBehaviour
         if (PressedBuilding)
         {
             currentAgent.destination = PressedBuilding.ParentTransform.position;
-            if (PressedBuilding.Built)
-            {
-                if (!PressedBuilding.builtAgent) yield return new WaitForSeconds(1);
-                currentAgent.ResetPath();
-                PressedBuilding.builtAgent.GetComponent<NavMeshAgent>().enabled = false;
-                if (PressedBuilding.builtAgent)
-                {
-                    while (currentAgent.transform.position != PressedBuilding.EndPoint.position)
-                    {
-                        currentAgent.transform.position = Vector3.MoveTowards(currentAgent.transform.position,
-                            PressedBuilding.EndPoint.position, 0.02f);
-                        yield return currentAgent.transform.position == PressedBuilding.EndPoint.position;
-                    }
-                    PressedBuilding.builtAgent.GetComponent<NavMeshAgent>().enabled = true;
-                }
-            }
         }
         else currentAgent.destination = _hit.point;
         yield return null;
