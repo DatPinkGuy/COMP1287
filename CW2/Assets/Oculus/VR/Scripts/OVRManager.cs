@@ -1742,6 +1742,7 @@ public class OVRManager : MonoBehaviour
 				OVRCameraRig cameraRig = camera.GetComponentInParent<OVRCameraRig>();
 				if (cameraRig != null && cameraRig.trackingSpace != null)
 				{
+					cameraRig.trackingSpace.transform.position = new Vector3(0,0,0); //added by Aleksandr Ovcinikov to fix tracking space moving away
 					cameras.Add(camera);
 				}
 			}
