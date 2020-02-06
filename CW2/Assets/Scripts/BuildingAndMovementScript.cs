@@ -12,12 +12,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     [Header("Current Agent/Object selected")]
     public BuildingInfo chosenBuilding;
     public NavMeshAgent currentAgent;
-    private enum Cycle
+    public enum Cycle
     {
         Day,
         Night
     }
-    private Cycle _cycle;
+    public Cycle cycle;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
     private Ray _ray;
@@ -33,6 +33,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private LaserPointer _laserPointer;
     private string Minutes => Mathf.Floor(_timer / 60).ToString("00");
     private string Seconds => Mathf.Floor(_timer % 60).ToString("00");
+
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
@@ -54,7 +55,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
         agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
-        _cycle = Cycle.Night;
+        cycle = Cycle.Night;
     }
     
     // Update is called once per frame
@@ -112,12 +113,12 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void DayNightSwitch()
     {
-        _cycle = _cycle == Cycle.Day ? Cycle.Night : Cycle.Day;
+        cycle = cycle == Cycle.Day ? Cycle.Night : Cycle.Day;
     }
 
     private void DayNightCycle()
     {
-        switch (_cycle)
+        switch (cycle)
         {
             case Cycle.Day:
                 foreach (var agent in agents)
@@ -129,7 +130,6 @@ public class BuildingAndMovementScript : MonoBehaviour
             case Cycle.Night:
                 foreach (var agent in agentCharacter)
                 {
-                    agent.energy += agent.energyUsage * Time.deltaTime;
                     agent.health += agent.healthUsage * Time.deltaTime;
                 }
 

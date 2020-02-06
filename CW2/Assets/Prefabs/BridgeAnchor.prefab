@@ -174,7 +174,7 @@ MonoBehaviour:
   placed: 0
   materials:
   - {fileID: 2100000, guid: 8e021175be46aa44891a2abb29139922, type: 2}
-  - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
+  - {fileID: 2100000, guid: af694c71502638a419df2e9956413095, type: 2}
   endPoint: {fileID: 121321694083321594}
   agents: []
   buildingAgents: []
