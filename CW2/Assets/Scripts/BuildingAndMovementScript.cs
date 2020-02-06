@@ -31,8 +31,8 @@ public class BuildingAndMovementScript : MonoBehaviour
     private bool _gameActive;
     private float _timer;
     private LaserPointer _laserPointer;
-    private string minutes => Mathf.Floor(_timer / 60).ToString("00");
-    private string seconds => Mathf.Floor(_timer % 60).ToString("00");
+    private string Minutes => Mathf.Floor(_timer / 60).ToString("00");
+    private string Seconds => Mathf.Floor(_timer % 60).ToString("00");
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
@@ -195,7 +195,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         if (_gameActive)
         {
             _timer += Time.deltaTime;
-            timerText.text = minutes + ":" + seconds;
+            timerText.text = Minutes + ":" + Seconds;
         }
     }
 
