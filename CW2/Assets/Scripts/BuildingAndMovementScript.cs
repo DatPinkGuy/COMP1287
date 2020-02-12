@@ -18,12 +18,12 @@ public class BuildingAndMovementScript : MonoBehaviour
         Night
     }
     public Cycle cycle;
+    public int currency;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
     private Ray _ray;
     private Collider _collider;
     private Transform _buildingParent;
-    private int _currency;
     private int _layerMask = 1 << 8;
     private Transform HandTransform => rightHand.transform;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
@@ -48,7 +48,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     void Start()
     {
         _gameActive = false;
-        currencyText.text = _currency.ToString();
+        currencyText.text = currency.ToString();
         _layerMask = ~_layerMask;
         _sunMoon = FindObjectOfType<SunMoon>();
         _laserPointer = FindObjectOfType<LaserPointer>();
@@ -187,7 +187,7 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void UpdateCurrency()
     {
-        currencyText.text = _currency.ToString();
+        currencyText.text = currency.ToString();
     }
 
     private void UpdateTimer()
