@@ -6,7 +6,6 @@ using UnityEngine;
 public class UpgradeButton : UpgradeButtonManager
 {
     [SerializeField] private int buttonNumber;
-    [SerializeField] private new Collider collider;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +25,7 @@ public class UpgradeButton : UpgradeButtonManager
 
     public override void ButtonPress()
     {
-        if (textField.text.Length > 2) textField.text = null;
+        if (textField.text.Length == 2) return;
         var currentText = textField.text;
         textField.text = null;
         textField.text = currentText + buttonNumber.ToString();
