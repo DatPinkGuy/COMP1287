@@ -46,6 +46,7 @@ public class EndZone : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (mainScript.cycle == BuildingAndMovementScript.Cycle.Night) return;
         foreach (var agent in agents)
         {
             agent.health += agent.healthUsage * Time.deltaTime;
