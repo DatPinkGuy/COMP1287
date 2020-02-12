@@ -9,12 +9,12 @@ public class HealthUpgrade : UpgradeMain
     private MeshRenderer ObjectMaterial => GetComponent<MeshRenderer>();
     [SerializeField] private int price;
     [SerializeField] private int healthIncrease;
-    [SerializeField] private AgentCharacters[] agents;
+    [SerializeField] private List<AgentCharacters> agents;
 
     // Start is called before the first frame update
     void Start()
     {
-        agents = FindObjectsOfType<AgentCharacters>();
+        agents.AddRange(FindObjectsOfType<AgentCharacters>());
         if (!_bought) ObjectMaterial.material = materials[0];
         else ObjectMaterial.material = materials[1];
     }
