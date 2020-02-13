@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BuildingInfo : MonoBehaviour
 {
@@ -13,23 +15,32 @@ public class BuildingInfo : MonoBehaviour
     public Collider ObjectCollider => GetComponent<Collider>();
     public Transform ParentTransform => transform.parent;
     public Transform ThisTransform => gameObject.transform;
-    private bool Built => neededAmount <= currentAmount;
+    private MeshRenderer ObjectMaterial => gameObject.GetComponent<MeshRenderer>();
+    public bool Built => neededAmount <= currentAmount;
+    private OffMeshLink OffMeshLink => GetComponent<OffMeshLink>();
+    private BuildingAndMovementScript _mainScript;
+    private bool _removedWood;
+    [SerializeField] private int neededWood;
+    [SerializeField] private Material[] materials;
     [HideInInspector] public List<AgentCharacters> agents;
-    [HideInInspector] public List<AgentCharacters> buildingAgents;
+     public List<AgentCharacters> buildingAgents;
 
-    private void Start()
+     private void Start()
     {
+        ObjectMaterial.material = materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
+        OffMeshLink.enabled = false;
+        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
     }
 
     private void Update()
     {
+        CheckAgents();
         CheckBuild();
     }
     
     private void OnTriggerEnter(Collider other)
     {
-        if (Built) return;
         foreach (var agent in agents)
         {
             if (other.gameObject != agent.gameObject) continue;
@@ -39,8 +50,7 @@ public class BuildingInfo : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (Built) return;
-        foreach (var agent in agents)
+        foreach (var agent in buildingAgents)
         {
             if (other.gameObject != agent.gameObject) continue;
             buildingAgents.Remove(agent);
@@ -49,8 +59,19 @@ public class BuildingInfo : MonoBehaviour
 
     private void CheckBuild()
     {
-        if (Built) return;
-        StartCoroutine(BuildingProcess());
+        if (Built)
+        {
+            RemoveWood();
+            ObjectMaterial.material = materials[0];
+            OffMeshLink.enabled = true;
+            return;
+        }
+        if (buildingAgents.Count == 0) return;
+        if (!_removedWood && _mainScript.woodCount >= neededWood)
+        {
+            BuildingProcess();
+        }
+        
     }
 
     private void UseAgentEnergy()
@@ -61,11 +82,30 @@ public class BuildingInfo : MonoBehaviour
         }
     }
     
-    private IEnumerator BuildingProcess()
+    private void BuildingProcess()
     {
         UseAgentEnergy();
         currentAmount += (buildSpeed*Time.deltaTime) * buildingAgents.Count;
-        yield return null;
     }
-    
+
+    public void MaterialChange()
+    {
+        ObjectMaterial.material = materials[1];
+    }
+
+    private void RemoveWood()
+    {
+        if (_removedWood) return;
+        _mainScript.woodCount -= neededWood;
+        _removedWood = true;
+    }
+
+    private void CheckAgents()
+    {
+        if (Built || buildingAgents.Count == 0) return;
+        foreach (var agent in buildingAgents)
+        {
+            if (!agent.gameObject.activeSelf) buildingAgents.Remove(agent);
+        }
+    }
 }
