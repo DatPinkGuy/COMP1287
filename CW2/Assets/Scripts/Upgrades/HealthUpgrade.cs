@@ -28,7 +28,7 @@ public class HealthUpgrade : UpgradeMain
     public override void UseUpgrade()
     {
         if (_bought) return;
-        if (price < mainScript.currency) return;
+        if (mainScript.currency < price) return;
         foreach (var agent in agents)
         {
             agent.maxHealth += healthIncrease;

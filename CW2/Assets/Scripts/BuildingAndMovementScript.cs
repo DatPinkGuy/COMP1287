@@ -19,6 +19,9 @@ public class BuildingAndMovementScript : MonoBehaviour
     }
     public Cycle cycle;
     public int currency;
+    [HideInInspector] public int woodCount;
+    [HideInInspector] public float timer;
+    [HideInInspector] public bool gameActive;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
     private Ray _ray;
@@ -28,11 +31,9 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Transform HandTransform => rightHand.transform;
     private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
-    private bool _gameActive;
-    private float _timer;
     private LaserPointer _laserPointer;
-    private string Minutes => Mathf.Floor(_timer / 60).ToString("00");
-    private string Seconds => Mathf.Floor(_timer % 60).ToString("00");
+    private string Minutes => Mathf.Floor(timer / 60).ToString("00");
+    private string Seconds => Mathf.Floor(timer % 60).ToString("00");
 
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
@@ -43,11 +44,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     [SerializeField] private List<BuildingInfo> buildings;
     [SerializeField] private Text currencyText;
     [SerializeField] private Text timerText;
+    [SerializeField] private Text woodText;
 
     // Start is called before the first frame update
     void Start()
     {
-        _gameActive = false;
+        gameActive = false;
         currencyText.text = currency.ToString();
         _layerMask = ~_layerMask;
         _sunMoon = FindObjectOfType<SunMoon>();
@@ -61,12 +63,11 @@ public class BuildingAndMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //DrawRaycasts();
         OpenMenu();
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Two))
         {
-            _gameActive = true;
+            gameActive = true;
             DayNightSwitch();
         }
         DayNightCycle();
@@ -75,7 +76,9 @@ public class BuildingAndMovementScript : MonoBehaviour
             MoveObjectToRaycast();
             PlaceObject();
         }
-        if(_gameActive) UpdateTimer();
+        UpdateCurrency();
+        UpdateWood();
+        if(gameActive) UpdateTimer();
     }
     
     private void MoveObjectToRaycast()
@@ -192,20 +195,26 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void UpdateTimer()
     {
-        if (_gameActive)
+        if (gameActive)
         {
-            _timer += Time.deltaTime;
+            timer += Time.deltaTime;
             timerText.text = Minutes + ":" + Seconds;
         }
     }
 
+    private void UpdateWood()
+    {
+        woodText.text = woodCount.ToString();
+    }
+
     IEnumerator AgentMovement()
     {
-        if (PressedBuilding)
-        {
-            currentAgent.destination = PressedBuilding.ParentTransform.position;
-        }
-        else currentAgent.destination = _hit.point;
+//        if (PressedBuilding)
+//        {
+//            currentAgent.destination = PressedBuilding.ParentTransform.position;
+//        }
+//        else 
+        currentAgent.destination = _hit.point;
         yield return null;
     }
 }

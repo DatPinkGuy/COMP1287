@@ -44,8 +44,8 @@ public class AgentCharacters : MonoBehaviour, IAgent
     // Update is called once per frame
     void Update()
     {
-        UseHealth();
         CheckStats();
+        UseHealth();
         CheckIfOnLink();
         RotateCanvas();
         ChangeHealthBar(health, maxHealth);
