@@ -5,25 +5,27 @@ using UnityEngine;
 
 public class DoorAnimation : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Collider fingerCollider;
     private bool _doorState;
     private static readonly int DoorOpen = Animator.StringToHash("doorOpen");
 
     // Start is called before the first frame update
     void Start()
     {
-        //_animator = GetComponent<Animator>();
+        _doorState = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _animator.SetBool(DoorOpen, _doorState);
-        _doorState = true;
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other != fingerCollider) return;
         _doorState = !_doorState;
+        animator.SetBool(DoorOpen, _doorState);
     }
 }

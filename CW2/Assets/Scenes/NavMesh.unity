@@ -1692,7 +1692,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48d1d5de7f2f1f4d90a0b09f47bca51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1686244999}
+  animator: {fileID: 1686244999}
+  fingerCollider: {fileID: 1847128939}
 --- !u!1 &894257050
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,7 +2645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48d1d5de7f2f1f4d90a0b09f47bca51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1686244999}
+  animator: {fileID: 1686244999}
+  fingerCollider: {fileID: 1847128939}
 --- !u!1 &1360150834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,6 +3978,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1847128939 stripped
+SphereCollider:
+  m_CorrespondingSourceObject: {fileID: 2114801013740961869, guid: 9ebf80d475e828647830496b6513130a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3369434875362176210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1867387473
 GameObject:
   m_ObjectHideFlags: 0
