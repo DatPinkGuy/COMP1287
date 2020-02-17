@@ -639,6 +639,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167043141}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &168577680 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2114801013506937240, guid: 9ebf80d475e828647830496b6513130a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3369434875362176210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d454babf64b354d953fcbd4bc6079b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &200078528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1432,7 +1444,7 @@ MonoBehaviour:
   materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
-  mainScript: {fileID: 0}
+  mainScript: {fileID: 168577680}
   price: 0
   healthIncrease: 20
   agents: []
@@ -1693,7 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1686244999}
-  fingerCollider: {fileID: 1847128939}
+  fingerCollider: {fileID: 3369434875362176212}
 --- !u!1 &894257050
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,7 +2379,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cameraToFollow
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2131652221}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b0c5cb4ae626e84f9416281121fc8f3, type: 3}
 --- !u!224 &1262024685 stripped
@@ -2646,7 +2658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1686244999}
-  fingerCollider: {fileID: 1847128939}
+  fingerCollider: {fileID: 3369434875362176212}
 --- !u!1 &1360150834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3099,7 +3111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonManager: {fileID: 110914272}
-  handCollider: {fileID: 0}
+  handCollider: {fileID: 3369434875362176212}
   listOfUpgrades: []
 --- !u!65 &1556082241
 BoxCollider:
@@ -3412,7 +3424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 894257052}
-  collider: {fileID: 0}
+  collider: {fileID: 3369434875362176212}
   buttonNumber: 2
 --- !u!65 &1594894349
 BoxCollider:
@@ -3712,7 +3724,7 @@ MonoBehaviour:
   materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
-  mainScript: {fileID: 0}
+  mainScript: {fileID: 168577680}
   price: 0
   energyIncrease: 20
   agents: []
@@ -3978,12 +3990,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1847128939 stripped
-SphereCollider:
-  m_CorrespondingSourceObject: {fileID: 2114801013740961869, guid: 9ebf80d475e828647830496b6513130a,
-    type: 3}
-  m_PrefabInstance: {fileID: 3369434875362176210}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1867387473
 GameObject:
   m_ObjectHideFlags: 0
@@ -4155,7 +4161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 894257052}
-  collider: {fileID: 0}
+  collider: {fileID: 3369434875362176212}
 --- !u!65 &2001315362
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4321,7 +4327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 894257052}
-  collider: {fileID: 0}
+  collider: {fileID: 3369434875362176212}
   buttonNumber: 1
 --- !u!4 &2028467451 stripped
 Transform:
@@ -4635,6 +4641,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105913927}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!20 &2131652221 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2114801014764382557, guid: 9ebf80d475e828647830496b6513130a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3369434875362176210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &331349376621457910
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4706,12 +4718,12 @@ PrefabInstance:
         type: 3}
       propertyPath: mainScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 168577680}
     - target: {fileID: 331349376787476473, guid: 49ffd3713de36b2478219088663758f0,
         type: 3}
       propertyPath: cameraToFollow
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2131652221}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49ffd3713de36b2478219088663758f0, type: 3}
 --- !u!1001 &1893556559539545760
@@ -4999,8 +5011,28 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2114801013740961869, guid: 9ebf80d475e828647830496b6513130a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9ebf80d475e828647830496b6513130a, type: 3}
+--- !u!1 &3369434875362176211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2114801012841705772, guid: 9ebf80d475e828647830496b6513130a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3369434875362176210}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &3369434875362176212
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3369434875362176211}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.008
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5474737655512444590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5191,7 +5223,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cameraToFollow
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2131652221}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b0c5cb4ae626e84f9416281121fc8f3, type: 3}
 --- !u!1001 &8626656672250285589
