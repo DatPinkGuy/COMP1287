@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &678072436037333365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6009180080906478084}
+  - component: {fileID: 6851248005957444045}
+  - component: {fileID: 8901745286435905499}
+  - component: {fileID: 6108197647286571577}
+  m_Layer: 0
+  m_Name: LIndexCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6009180080906478084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678072436037333365}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9002003082761989995}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &6851248005957444045
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678072436037333365}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.008
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8901745286435905499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678072436037333365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ce558c62148a4429d44b7ebdf31da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  indexToFollow: {fileID: 5921997327360583924}
+--- !u!54 &6108197647286571577
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678072436037333365}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5921997325452233179
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,6 +3284,7 @@ Transform:
   - {fileID: 5921997325981400567}
   - {fileID: 5921997325649280287}
   - {fileID: 5921997326212759611}
+  - {fileID: 6009180080906478084}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3607,7 +3683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0950df82e7936c84983497630bde5b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 0.5
+  Acceleration: 0.3
   Damping: 0.3
   BackAndSideDampen: 0.5
   JumpForce: 0.3
@@ -3693,7 +3769,7 @@ MonoBehaviour:
   CameraRig: {fileID: 5921997326508447691}
   CurrentDistance: 0
   EnableFadeout: 0
-  EnableCollision: 0
+  EnableCollision: 1
   DynamicHeight: 1
   MaxFade: 1
   FadeMinDistance: 0.25
@@ -4926,7 +5002,7 @@ GameObject:
   - component: {fileID: 5921997326212759613}
   - component: {fileID: 5921997326212759614}
   m_Layer: 0
-  m_Name: IndexCollider
+  m_Name: RIndexCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

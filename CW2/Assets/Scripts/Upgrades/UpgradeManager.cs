@@ -6,13 +6,19 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
+    private  List<IndexFinger> _indexFinger = new List<IndexFinger>();
+    private List<Collider> _fingerColliders = new List<Collider>();
     [SerializeField] private UpgradeButtonManager buttonManager;
-    [SerializeField] private Collider handCollider;
     [SerializeField] private UpgradeMain[] listOfUpgrades;
     // Start is called before the first frame update
     void Start()
     {
         listOfUpgrades = FindObjectsOfType<UpgradeMain>();
+        _indexFinger.AddRange(FindObjectsOfType<IndexFinger>());
+        foreach (var finger in _indexFinger)
+        {
+            _fingerColliders.Add(finger.GetComponent<Collider>());
+        }
     }
 
     // Update is called once per frame
@@ -24,15 +30,18 @@ public class UpgradeManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other != handCollider) return;
-        foreach (var upgrade in listOfUpgrades)
+        foreach (var finger in _fingerColliders)
         {
-            if (upgrade.upgradeNumber == 0) return;
-            if (upgrade.upgradeNumber == int.Parse(buttonManager.textField.text))
+            if (other != finger) continue;
+            foreach (var upgrade in listOfUpgrades)
             {
-                buttonManager.textField.text = null;
-                upgrade.UseUpgrade();
-                break;
+                if (upgrade.upgradeNumber == 0) return;
+                if (upgrade.upgradeNumber == int.Parse(buttonManager.textField.text ?? throw new IndexOutOfRangeException()))
+                {
+                    buttonManager.textField.text = null;
+                    upgrade.UseUpgrade();
+                    break;
+                }
             }
         }
     }
