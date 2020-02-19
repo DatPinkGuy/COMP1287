@@ -10,15 +10,14 @@ public class EndZone : MonoBehaviour
 {
     private bool _gameEnd;
     private int _aliveAgents;
-    private float Timer => mainScript.timer;
+    private float Timer => _mainScript.timer;
+    private BuildingAndMovementScript _mainScript;
     [SerializeField] private int requiredAgents;
     [SerializeField] private float[] completionTimes;
     [SerializeField] private int[] rewardLevels;
     [SerializeField] private Image[] starsForTime;
-    [SerializeField] private BuildingAndMovementScript mainScript;
     [SerializeField] private Canvas canvas;
     [SerializeField] private Text text;
-    [SerializeField] private Camera cameraToFollow;
     [SerializeField] private String gameWon;
     [SerializeField] private String gameLost;
     [HideInInspector] public List<AgentCharacters> agents;
@@ -28,6 +27,7 @@ public class EndZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         foreach (var image in starsForTime)
         {
@@ -69,7 +69,7 @@ public class EndZone : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (mainScript.cycle == BuildingAndMovementScript.Cycle.Night) return;
+        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Night) return;
         foreach (var agent in agentsInside)
         {
             agent.health += agent.healthUsage * Time.deltaTime;
@@ -91,7 +91,7 @@ public class EndZone : MonoBehaviour
         {
             if (_aliveAgents >= requiredAgents)
             {
-                mainScript.gameActive = false;
+                _mainScript.gameActive = false;
                 text.text = gameWon;
                 StartCoroutine(GameWon());
             }
@@ -105,7 +105,7 @@ public class EndZone : MonoBehaviour
 
     private void RotateCanvas()
     {
-        Vector3 direction = cameraToFollow.transform.position - canvas.transform.position;
+        Vector3 direction = _mainScript.centerCamera.transform.position - canvas.transform.position;
         canvas.transform.rotation = Quaternion.LookRotation(direction);
     }
     
@@ -113,12 +113,12 @@ public class EndZone : MonoBehaviour
     {
         if (Timer >= completionTimes.Last())
         {
-            mainScript.currency += rewardLevels.Last();
+            _mainScript.currency += rewardLevels.Last();
             starsForTime.First().enabled = true;
         }
         else if (Timer <= completionTimes.First())
         {
-            mainScript.currency += rewardLevels.First();
+            _mainScript.currency += rewardLevels.First();
             foreach (var image in starsForTime)
             {
                 image.enabled = true;
@@ -126,7 +126,7 @@ public class EndZone : MonoBehaviour
         }
         else
         {
-            mainScript.currency += rewardLevels[rewardLevels.Length / 2];
+            _mainScript.currency += rewardLevels[rewardLevels.Length / 2];
             for (int i = 0; i < starsForTime.Length-1; i++)
             {
                 starsForTime[i].enabled = true;

@@ -11,7 +11,6 @@ public class BuildingInfo : MonoBehaviour
     public float neededAmount = 100f;
     public float currentAmount = 0f;
     public float buildSpeed = 10f;
-    public bool placed = false;
     public Collider ObjectCollider => GetComponent<Collider>();
     public Transform ParentTransform => transform.parent;
     public Transform ThisTransform => gameObject.transform;
@@ -23,9 +22,10 @@ public class BuildingInfo : MonoBehaviour
     [SerializeField] private int neededWood;
     [SerializeField] private Material[] materials;
     [HideInInspector] public List<AgentCharacters> agents;
-     public List<AgentCharacters> buildingAgents;
+    [HideInInspector] public List<AgentCharacters> buildingAgents;
 
-     private void Start()
+
+    private void Start()
     {
         ObjectMaterial.material = materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());

@@ -3683,13 +3683,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0950df82e7936c84983497630bde5b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Acceleration: 0.3
+  Acceleration: 0.6
   Damping: 0.3
   BackAndSideDampen: 0.5
   JumpForce: 0.3
   RotationAmount: 1.5
   RotationRatchet: 45
-  SnapRotation: 1
+  SnapRotation: 0
   FixedSpeedSteps: 0
   HmdResetsY: 1
   HmdRotatesY: 1
@@ -3741,10 +3741,11 @@ MonoBehaviour:
   chosenBuilding: {fileID: 0}
   currentAgent: {fileID: 0}
   cycle: 0
-  currency: 0
+  centerCamera: {fileID: 5921997326892133829}
   woodCount: 0
   timer: 0
   gameActive: 0
+  currency: 0
   rightHand: {fileID: 5921997326395541677}
   leftHand: {fileID: 5921997327400216146}
   menuGameObject: {fileID: 5921997325470242942}
@@ -3769,7 +3770,7 @@ MonoBehaviour:
   CameraRig: {fileID: 5921997326508447691}
   CurrentDistance: 0
   EnableFadeout: 0
-  EnableCollision: 1
+  EnableCollision: 0
   DynamicHeight: 1
   MaxFade: 1
   FadeMinDistance: 0.25

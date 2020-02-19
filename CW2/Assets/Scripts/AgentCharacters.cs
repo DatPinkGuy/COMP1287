@@ -16,11 +16,11 @@ public class AgentCharacters : MonoBehaviour, IAgent
     public float maxHealth = 100;
     public float maxEnergy = 100;
     public float agentSpeed;
+    private BuildingAndMovementScript _mainScript;
     [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;
     [SerializeField] private Image healthImage;
     [SerializeField] private Image energyImage;
-    [SerializeField] private Camera cameraToFollow;
     [SerializeField] private Canvas canvasBars;
     private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
     private float HealthBarValue
@@ -38,7 +38,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     // Start is called before the first frame update
     void Start()
     {
-       
+        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
     }
 
     // Update is called once per frame
@@ -89,7 +89,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
 
     private void RotateCanvas()
     {
-        Vector3 direction = cameraToFollow.transform.position - canvasBars.transform.position;
+        Vector3 direction = _mainScript.centerCamera.transform.position - canvasBars.transform.position;
         canvasBars.transform.rotation = Quaternion.LookRotation(direction);
     }
     private void ChangeHealthBar(float value, float maxValue)
