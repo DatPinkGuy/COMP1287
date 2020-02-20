@@ -10,9 +10,6 @@ using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour
 {
-    [Header("Current Agent/Object selected")]
-    public BuildingInfo chosenBuilding;
-    public NavMeshAgent currentAgent;
     public enum Cycle { Day, Night }
     public Cycle cycle;
     public Camera centerCamera;
@@ -20,6 +17,8 @@ public class BuildingAndMovementScript : MonoBehaviour
     [HideInInspector] public float timer;
     [HideInInspector] public bool gameActive;
     [HideInInspector] public int currency;
+    private BuildingInfo _chosenBuilding;
+    private NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
     private Ray _ray;
@@ -29,7 +28,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     private LaserPointer _laserPointer;
     private int _agentIndex = 0;
-    //private Renderer AgentMaterial => currentAgent.GetComponent<Renderer>();
+    private Renderer AgentMaterial => _currentAgent.GetComponent<Renderer>();
     private string Minutes => Mathf.Floor(timer / 60).ToString("00");
     private string Seconds => Mathf.Floor(timer % 60).ToString("00");
 
@@ -70,7 +69,7 @@ public class BuildingAndMovementScript : MonoBehaviour
             DayNightSwitch();
         }
         DayNightCycle();
-        if (chosenBuilding)
+        if (_chosenBuilding)
         {
             MoveObjectToRaycast();
             PlaceObject();
@@ -90,15 +89,15 @@ public class BuildingAndMovementScript : MonoBehaviour
                 foreach (var building in buildings)
                 {
                     if (building.ThisTransform != _hit.transform) continue;
-                    if (building.Built) continue;
-                    chosenBuilding = building;
+                    if (building.Built && _currentAgent) continue;
+                    _chosenBuilding = building;
                     _buildingParent = building.ParentTransform;
-                    currentAgent = null;
-                    chosenBuilding.MaterialChange();
+                    _currentAgent = null;
+                    _chosenBuilding.MaterialChange();
                     break;
 
                 }
-                if (!currentAgent) return;
+                if (!_currentAgent) return;
                 StartCoroutine(AgentMovement());
             }
         }
@@ -106,23 +105,26 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void ChangeCharacter()
     {
+        if(_currentAgent) AgentMaterial.material.DisableKeyword("_EMISSION");
         _agentIndex++;
-        if (_agentIndex > agents.Count)
+        if (_agentIndex <= agents.Count)
         {
-            currentAgent = agents.First();
-            _agentIndex = 1;
-            return;
+            _currentAgent = agents[_agentIndex-1];
+            AgentMaterial.material.EnableKeyword("_EMISSION");
         }
-        currentAgent = agents[_agentIndex-1];
-        if (currentAgent != null) return; 
-        currentAgent = agents.First();
-        _agentIndex = 1;
+        else if (_agentIndex == agents.Count+1) _currentAgent = null;
+        else
+        {
+            _agentIndex = 1;
+            _currentAgent = agents[_agentIndex-1];
+            AgentMaterial.material.EnableKeyword("_EMISSION");
+        }
         
     }
     
     private void MoveObjectToRaycast()
     {
-        chosenBuilding.ObjectCollider.enabled = false;
+        _chosenBuilding.ObjectCollider.enabled = false;
         if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
         {
             _buildingParent.position = _hit.point;
@@ -144,10 +146,10 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void PlaceObject()
     {
-        if (chosenBuilding && OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
+        if (_chosenBuilding && OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
         {
-            chosenBuilding.ObjectCollider.enabled = true;
-            chosenBuilding = null;
+            _chosenBuilding.ObjectCollider.enabled = true;
+            _chosenBuilding = null;
             _buildingParent = null;
         }
     }
@@ -216,7 +218,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     
     IEnumerator AgentMovement()
     {
-        currentAgent.destination = _hit.point;
+        _currentAgent.destination = _hit.point;
         yield return null;
     }
 }

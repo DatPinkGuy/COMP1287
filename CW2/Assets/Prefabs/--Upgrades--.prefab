@@ -1034,7 +1034,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 8
 --- !u!65 &2064911946372878596
 BoxCollider:
@@ -1230,7 +1231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 0
 --- !u!65 &2202919220809632703
 BoxCollider:
@@ -1358,7 +1360,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonManager: {fileID: 6690056463931253787}
-  handCollider: {fileID: 0}
   listOfUpgrades: []
 --- !u!1 &2227136888467019052
 GameObject:
@@ -1458,7 +1459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 2
 --- !u!65 &2227136888467019043
 BoxCollider:
@@ -1736,7 +1738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 1
 --- !u!65 &2553570601087313371
 BoxCollider:
@@ -1850,7 +1853,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 9
 --- !u!65 &2881475392083269720
 BoxCollider:
@@ -2162,7 +2166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 6
 --- !u!65 &3465454968167457375
 BoxCollider:
@@ -2372,7 +2377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
 --- !u!1 &3982241276281662468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,7 +2643,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 5
 --- !u!65 &4310585608351741541
 BoxCollider:
@@ -3205,7 +3212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 7
 --- !u!65 &5461313583807435546
 BoxCollider:
@@ -3319,7 +3327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 4
 --- !u!65 &5635204664931459468
 BoxCollider:
@@ -3571,7 +3580,7 @@ RectTransform:
   m_Children:
   - {fileID: 6690056464137750880}
   m_Father: {fileID: 6690056465532481025}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3651,98 +3660,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
---- !u!1 &6690056464070957920
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6690056464070957927}
-  - component: {fileID: 6690056464070957926}
-  m_Layer: 0
-  m_Name: Area Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6690056464070957927
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6690056464070957920}
-  m_LocalRotation: {x: 0.25071973, y: 0.66116536, z: -0.2507198, w: 0.66116536}
-  m_LocalPosition: {x: 20.103468, y: 27.678787, z: 0.4070022}
-  m_LocalScale: {x: 11.523849, y: 16.637833, z: 14.754282}
-  m_Children: []
-  m_Father: {fileID: 6690056465532481025}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 41.534, y: 0, z: 0}
---- !u!108 &6690056464070957926
-Light:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6690056464070957920}
-  m_Enabled: 1
-  serializedVersion: 9
-  m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
-  m_Range: 70
-  m_SpotAngle: 39
-  m_InnerSpotAngle: 21.80208
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 2
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-    m_CullingMatrixOverride:
-      e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
-    m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingLayerMask: 1
-  m_Lightmapping: 2
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 10.45, y: 17.05}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_UseBoundingSphereOverride: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
+  _indexFinger: []
+  _fingerColliders: []
 --- !u!1 &6690056464137750881
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,7 +3774,7 @@ Transform:
   m_LocalScale: {x: 1.3251, y: 1.2856, z: 0.25913}
   m_Children: []
   m_Father: {fileID: 6690056465532481025}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &6690056464535825804
 MeshFilter:
@@ -3954,7 +3873,7 @@ Transform:
   m_LocalScale: {x: 1.3251, y: 1.2856, z: 0.25913}
   m_Children: []
   m_Father: {fileID: 6690056465532481025}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &6690056465515573337
 MeshFilter:
@@ -4050,7 +3969,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1850256132667623329}
-  - {fileID: 6690056464070957927}
   - {fileID: 6690056464535825807}
   - {fileID: 6690056465515573348}
   - {fileID: 6690056463931253799}
@@ -4401,7 +4319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  collider: {fileID: 0}
+  _indexFinger: []
+  _fingerColliders: []
   buttonNumber: 3
 --- !u!65 &8643057207907366703
 BoxCollider:
@@ -4542,11 +4461,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6690056465532481025}
     m_Modifications:
-    - target: {fileID: 6450791260240122305, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: m_Name
-      value: VendingMachine
-      objectReference: {fileID: 0}
     - target: {fileID: 8061031711336063954, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4602,75 +4516,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2062891588889645494, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+    - target: {fileID: 6450791260240122305, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 2062891588889645494, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7969507358056724979, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 7969507358056724979, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5958318825505325667, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 5958318825505325667, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5059092675198375108, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 5059092675198375108, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6858080978015383429, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 6858080978015383429, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8559536513788532736, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 8559536513788532736, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4260654046753694964, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 4260654046753694964, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
+      propertyPath: m_Name
+      value: VendingMachine
       objectReference: {fileID: 0}
     - target: {fileID: 163644789714965673, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
@@ -4678,26 +4527,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6690056464137750887}
     - target: {fileID: 163644789714965673, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7211203494725631976, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 7211203494725631976, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1365664860332807780, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: textField
-      value: 
-      objectReference: {fileID: 6690056464137750887}
-    - target: {fileID: 1365664860332807780, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: collider
       value: 
@@ -4720,6 +4549,96 @@ PrefabInstance:
     - target: {fileID: 2415047711529511737, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: handCollider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969507358056724979, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 7969507358056724979, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062891588889645494, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 2062891588889645494, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211203494725631976, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 7211203494725631976, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8559536513788532736, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 8559536513788532736, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365664860332807780, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 1365664860332807780, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6858080978015383429, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 6858080978015383429, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260654046753694964, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 4260654046753694964, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059092675198375108, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 5059092675198375108, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958318825505325667, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: textField
+      value: 
+      objectReference: {fileID: 6690056464137750887}
+    - target: {fileID: 5958318825505325667, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: collider
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
