@@ -55,7 +55,7 @@ Transform:
   m_GameObject: {fileID: 1893556560709022920}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.0024, z: 0.431}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.46572}
   m_Children:
   - {fileID: 1893556561448240061}
   m_Father: {fileID: 0}
@@ -171,7 +171,6 @@ MonoBehaviour:
   neededAmount: 100
   currentAmount: 0
   buildSpeed: 10
-  objectCollider: {fileID: 0}
   neededWood: 50
   materials:
   - {fileID: 2100000, guid: 8e021175be46aa44891a2abb29139922, type: 2}
