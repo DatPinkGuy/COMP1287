@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneChanging : MonoBehaviour
 {
     private MeshRenderer MeshRenderer => GetComponent<MeshRenderer>();
+    private bool _sceneLoading;
     [SerializeField] private Material[] materials;
     [SerializeField] private int levelNumber;
 
@@ -17,13 +18,16 @@ public class SceneChanging : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_sceneLoading) return;
         StartCoroutine(ChangeLevel());
     }
 
     private IEnumerator ChangeLevel()
     {
+        _sceneLoading = true;
         MeshRenderer.material = materials[1];
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(levelNumber);
+        SceneManager.LoadScene(levelNumber, LoadSceneMode.Additive);
+        enabled = false;
     }
 }

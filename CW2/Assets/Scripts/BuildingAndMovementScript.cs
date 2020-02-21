@@ -18,7 +18,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     [HideInInspector] public bool gameActive;
     [HideInInspector] public int currency;
     private BuildingInfo _chosenBuilding;
-    private NavMeshAgent _currentAgent;
+    public NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
     private Ray _ray;
@@ -89,7 +89,12 @@ public class BuildingAndMovementScript : MonoBehaviour
                 foreach (var building in buildings)
                 {
                     if (building.ThisTransform != _hit.transform) continue;
-                    if (building.Built && _currentAgent) continue;
+                    if (building.Built) return;
+                    if (_currentAgent)
+                    {
+                        _currentAgent.destination = _hit.point;
+                        return;
+                    }
                     _chosenBuilding = building;
                     _buildingParent = building.ParentTransform;
                     _currentAgent = null;
