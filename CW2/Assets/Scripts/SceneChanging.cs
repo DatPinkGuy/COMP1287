@@ -8,7 +8,6 @@ public class SceneChanging : MonoBehaviour
 {
     private MeshRenderer MeshRenderer => GetComponent<MeshRenderer>();
     private static bool _sceneLoading;
-    private BuildingAndMovementScript _mainScript;
     private Renderer FadeMaterial => fadeObject.GetComponent<Renderer>();
     [SerializeField] private GameObject fadeObject;
     [SerializeField] private Material[] materials;
@@ -16,7 +15,6 @@ public class SceneChanging : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(_sceneLoading);
         if (_sceneLoading)
         {
             var fadeMaterialColor = FadeMaterial.material.color;
@@ -24,7 +22,10 @@ public class SceneChanging : MonoBehaviour
             FadeMaterial.material.color = fadeMaterialColor;
             StartCoroutine(UndoFade());
         }
-        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        else
+        {
+            fadeObject.SetActive(false);
+        }
         if(MeshRenderer) MeshRenderer.material = materials[0];
     }
 
@@ -36,6 +37,7 @@ public class SceneChanging : MonoBehaviour
 
     private IEnumerator ChangeLevel()
     {
+        fadeObject.SetActive(true);
         var fadeMaterialColor = FadeMaterial.material.color;
         _sceneLoading = true;
         MeshRenderer.material = materials[1];
@@ -61,5 +63,6 @@ public class SceneChanging : MonoBehaviour
             FadeMaterial.material.color = fadeMaterialColor;
             yield return null;
         }
+        fadeObject.SetActive(false);
     }
 }
