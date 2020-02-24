@@ -16,8 +16,16 @@ public class SceneChanging : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(_sceneLoading);
+        if (_sceneLoading)
+        {
+            var fadeMaterialColor = FadeMaterial.material.color;
+            fadeMaterialColor.a = 1;
+            FadeMaterial.material.color = fadeMaterialColor;
+            StartCoroutine(UndoFade());
+        }
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
-        MeshRenderer.material = materials[0];
+        if(MeshRenderer) MeshRenderer.material = materials[0];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,12 +40,26 @@ public class SceneChanging : MonoBehaviour
         _sceneLoading = true;
         MeshRenderer.material = materials[1];
         yield return new WaitForSeconds(2);
-//        fadeMaterialColor.a += 0.01f * Time.deltaTime;
-//        Debug.Log(fadeMaterialColor);
-//        FadeMaterial.material.color = fadeMaterialColor;
-        //yield return new WaitUntil(()=>fadeMaterialColor.a >= 1);
+        while (fadeMaterialColor.a < 1)
+        {
+            fadeMaterialColor.a += 1f * Time.deltaTime;
+            FadeMaterial.material.color = fadeMaterialColor;
+            yield return null;
+        }
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(levelNumber);
         enabled = false;
+    }
+
+    private IEnumerator UndoFade()
+    {
+        var fadeMaterialColor = FadeMaterial.material.color;
+        yield return new WaitForSeconds(2);
+        while (fadeMaterialColor.a > 0)
+        {
+            fadeMaterialColor.a -= 1f * Time.deltaTime;
+            FadeMaterial.material.color = fadeMaterialColor;
+            yield return null;
+        }
     }
 }

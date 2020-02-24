@@ -303,7 +303,7 @@ Transform:
   m_Children:
   - {fileID: 848427005}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &366547114
 GameObject:
@@ -446,7 +446,7 @@ MonoBehaviour:
   fadeObject: {fileID: 1021520194}
   materials:
   - {fileID: 2100000, guid: d73f8afe478afde498d6b36047a52c73, type: 2}
-  - {fileID: 2100000, guid: 669025377795b574da66d9bb2472fcab, type: 2}
+  - {fileID: 2100000, guid: 7213296e1001fd14da4690118d2e583b, type: 2}
   levelNumber: 1
 --- !u!64 &848427007
 MeshCollider:
@@ -1080,7 +1080,7 @@ PrefabInstance:
     - target: {fileID: 4374969471684162125, guid: 5ce2505d8b029984e881802b8079147c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4374969471684162125, guid: 5ce2505d8b029984e881802b8079147c,
         type: 3}
