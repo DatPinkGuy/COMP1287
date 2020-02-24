@@ -114,11 +114,13 @@ public class EndZone : MonoBehaviour
         if (Timer >= completionTimes.Last())
         {
             _mainScript.currency += rewardLevels.Last();
+            _mainScript.UpdateCurrency();
             starsForTime.First().enabled = true;
         }
         else if (Timer <= completionTimes.First())
         {
             _mainScript.currency += rewardLevels.First();
+            _mainScript.UpdateCurrency();
             foreach (var image in starsForTime)
             {
                 image.enabled = true;
@@ -127,6 +129,7 @@ public class EndZone : MonoBehaviour
         else
         {
             _mainScript.currency += rewardLevels[rewardLevels.Length / 2];
+            _mainScript.UpdateCurrency();
             for (int i = 0; i < starsForTime.Length-1; i++)
             {
                 starsForTime[i].enabled = true;

@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class UpgradeButtonManager : MonoBehaviour
 {
     public Text textField;
-    [HideInInspector] public List<IndexFinger> _indexFinger = new List<IndexFinger>();
-    [HideInInspector] public List<Collider> _fingerColliders = new List<Collider>();
+    [HideInInspector] public List<IndexFinger> indexFinger = new List<IndexFinger>();
+    [HideInInspector] public List<Collider> fingerColliders = new List<Collider>();
     // Start is called before the first frame update
     void Start()
     {
         textField.text = null;
-        _indexFinger.AddRange(FindObjectsOfType<IndexFinger>());
-        foreach (var finger in _indexFinger)
+        indexFinger.AddRange(FindObjectsOfType<IndexFinger>());
+        foreach (var finger in indexFinger)
         {
-            _fingerColliders.Add(finger.GetComponent<Collider>());
+            fingerColliders.Add(finger.GetComponent<Collider>());
         }
     }
 
@@ -33,7 +33,7 @@ public class UpgradeButtonManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        foreach (var finger in _fingerColliders)
+        foreach (var finger in fingerColliders)
         {
             if (other != finger) continue;
             textField.text = null;

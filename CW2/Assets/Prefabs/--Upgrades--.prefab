@@ -1049,8 +1049,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000019073486, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000019073486, y: 0, z: -0.5}
 --- !u!1 &2107381206936702924
 GameObject:
   m_ObjectHideFlags: 0
@@ -1246,8 +1246,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000019073486, y: 0.0000076293945, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000019073486, y: 0.0000076293945, z: -0.5}
 --- !u!1 &2214587611035798154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,8 +1344,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0.0000076293945, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0.0000076293945, z: -0.5}
 --- !u!114 &2214587611035798153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,8 +1474,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000019073486, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000019073486, y: 0, z: -0.5}
 --- !u!1 &2493054703572671830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1753,8 +1753,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.5}
 --- !u!1 &2881475392083269721
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,8 +1868,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.5}
 --- !u!1 &3101489193677547346
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,8 +2181,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.5}
 --- !u!1 &3750547915545209153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,8 +2361,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0.0000076293945, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0.0000076293945, z: -0.5}
 --- !u!114 &3962645738407226041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2658,8 +2658,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000019073486, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000019073486, y: 0, z: -0.5}
 --- !u!1 &4872284840545222110
 GameObject:
   m_ObjectHideFlags: 0
@@ -3227,8 +3227,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.5}
 --- !u!1 &5635204664931459469
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,8 +3342,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.5}
 --- !u!1 &5948739166969062304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,8 +4334,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
-  m_Center: {x: -0.0000009536743, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.0000001, z: 2}
+  m_Center: {x: -0.0000009536743, y: 0, z: -0.5}
 --- !u!1 &8757387054932942149
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,10 +4516,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6450791260240122305, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+    - target: {fileID: 3237071924788982025, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
-      propertyPath: m_Name
-      value: VendingMachine
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237071924788982025, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3237071924788982025, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 163644789714965673, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
@@ -4540,6 +4550,36 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522310508344351507, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522310508344351507, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522310508344351507, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888021388022749657, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888021388022749657, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7888021388022749657, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2415047711529511737, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
@@ -4561,6 +4601,21 @@ PrefabInstance:
       propertyPath: collider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2465432833310161385, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465432833310161385, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2465432833310161385, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2062891588889645494, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: textField
@@ -4570,6 +4625,36 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 300673884062229963, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 300673884062229963, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 300673884062229963, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011896459939148039, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011896459939148039, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9011896459939148039, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7211203494725631976, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
@@ -4581,6 +4666,11 @@ PrefabInstance:
       propertyPath: collider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6450791260240122305, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Name
+      value: VendingMachine
+      objectReference: {fileID: 0}
     - target: {fileID: 8559536513788532736, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: textField
@@ -4590,6 +4680,36 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4218059266570571313, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4218059266570571313, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4218059266570571313, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572196865335842234, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572196865335842234, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572196865335842234, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1365664860332807780, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
@@ -4611,6 +4731,21 @@ PrefabInstance:
       propertyPath: collider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2258830122435911408, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258830122435911408, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2258830122435911408, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4260654046753694964, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: textField
@@ -4620,6 +4755,21 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034241595269182770, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034241595269182770, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7034241595269182770, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5059092675198375108, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
@@ -4631,6 +4781,21 @@ PrefabInstance:
       propertyPath: collider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5607165267084618077, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607165267084618077, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5607165267084618077, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5958318825505325667, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: textField
@@ -4640,6 +4805,21 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969932433434977070, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969932433434977070, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969932433434977070, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1, type: 3}

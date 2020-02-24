@@ -97,6 +97,7 @@ public class BuildingInfo : MonoBehaviour
     {
         if (_removedWood) return;
         _mainScript.woodCount -= neededWood;
+        _mainScript.UpdateWood();
         _removedWood = true;
     }
 

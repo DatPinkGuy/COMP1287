@@ -6,6 +6,7 @@ using OVRTouchSample;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour
@@ -18,7 +19,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     [HideInInspector] public bool gameActive;
     [HideInInspector] public int currency;
     private BuildingInfo _chosenBuilding;
-    public NavMeshAgent _currentAgent;
+    private NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
     private Ray _ray;
@@ -74,16 +75,14 @@ public class BuildingAndMovementScript : MonoBehaviour
             MoveObjectToRaycast();
             PlaceObject();
         }
-        UpdateCurrency();
-        UpdateWood();
         if(gameActive) UpdateTimer();
     }
     
     private void BuildingCharacterLogic()
     {
-        _ray = new Ray(HandTransform.position,HandTransform.forward);
         if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
+            _ray = new Ray(HandTransform.position,HandTransform.forward);
             if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
             {
                 foreach (var building in buildings)
@@ -202,23 +201,20 @@ public class BuildingAndMovementScript : MonoBehaviour
         }
     }
 
-    private void UpdateCurrency()
+    public void UpdateCurrency()
     {
         currencyText.text = currency.ToString();
     }
 
-    private void UpdateTimer()
-    {
-        if (gameActive)
-        {
-            timer += Time.deltaTime;
-            timerText.text = Minutes + ":" + Seconds;
-        }
-    }
-
-    private void UpdateWood()
+    public void UpdateWood()
     {
         woodText.text = woodCount.ToString();
+    }
+    
+    private void UpdateTimer()
+    {
+        timer += Time.deltaTime;
+        timerText.text = Minutes + ":" + Seconds;
     }
     
     IEnumerator AgentMovement()

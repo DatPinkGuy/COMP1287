@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b0c0f707a1b4194b95af647fd74240e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeObject: {fileID: 1021520194}
   materials:
   - {fileID: 2100000, guid: d73f8afe478afde498d6b36047a52c73, type: 2}
   - {fileID: 2100000, guid: 669025377795b574da66d9bb2472fcab, type: 2}
@@ -507,6 +508,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848427004}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1021520194 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8797629705465997930, guid: 9ebf80d475e828647830496b6513130a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2114801014407661270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1047995357
 GameObject:
   m_ObjectHideFlags: 0
@@ -982,6 +989,21 @@ PrefabInstance:
     - target: {fileID: 2114801013544000077, guid: 9ebf80d475e828647830496b6513130a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 663885724574775399, guid: 9ebf80d475e828647830496b6513130a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 663885724574775399, guid: 9ebf80d475e828647830496b6513130a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -30.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 663885726310835188, guid: 9ebf80d475e828647830496b6513130a,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

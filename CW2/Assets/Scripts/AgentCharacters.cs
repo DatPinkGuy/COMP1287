@@ -22,7 +22,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     [SerializeField] private Image healthImage;
     [SerializeField] private Image energyImage;
     [SerializeField] private Canvas canvasBars;
-    private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
+    public NavMeshAgent Agent => GetComponent<NavMeshAgent>();
     private float HealthBarValue
     {
         get => healthImage.fillAmount;

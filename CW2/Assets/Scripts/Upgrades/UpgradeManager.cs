@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
-    private  List<IndexFinger> _indexFinger = new List<IndexFinger>();
-    private List<Collider> _fingerColliders = new List<Collider>();
+    private readonly List<IndexFinger> _indexFinger = new List<IndexFinger>();
+    private readonly List<Collider> _fingerColliders = new List<Collider>();
     [SerializeField] private UpgradeButtonManager buttonManager;
     [SerializeField] private UpgradeMain[] listOfUpgrades;
     // Start is called before the first frame update

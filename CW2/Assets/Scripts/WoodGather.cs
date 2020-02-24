@@ -62,6 +62,7 @@ public class WoodGather : MonoBehaviour
         if (currentAmount >= neededAmount)
         {
             _mainScript.woodCount += woodAmount;
+            _mainScript.UpdateWood();
             gameObject.SetActive(false);
         }
     }
