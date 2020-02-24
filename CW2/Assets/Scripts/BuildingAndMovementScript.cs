@@ -37,6 +37,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
     [SerializeField] private GameObject menuGameObject;
+    [SerializeField] private GameObject bigMenuGameObject;
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
@@ -191,7 +192,7 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void OpenMenu()
     {
-        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40)
+        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40 && !bigMenuGameObject.activeSelf)
         {
             menuGameObject.SetActive(true);
         }

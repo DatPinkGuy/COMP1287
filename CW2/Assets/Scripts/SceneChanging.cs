@@ -32,10 +32,10 @@ public class SceneChanging : MonoBehaviour
         _sceneLoading = true;
         MeshRenderer.material = materials[1];
         yield return new WaitForSeconds(2);
-//        fadeMaterialColor.a += 0.01f;
+//        fadeMaterialColor.a += 0.01f * Time.deltaTime;
 //        Debug.Log(fadeMaterialColor);
 //        FadeMaterial.material.color = fadeMaterialColor;
-//        yield return new WaitUntil(()=>fadeMaterialColor.a >= 1);
+        //yield return new WaitUntil(()=>fadeMaterialColor.a >= 1);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(levelNumber);
         enabled = false;

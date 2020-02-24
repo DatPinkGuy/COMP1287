@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 6448547127639926813}
   - component: {fileID: 5997438702062595377}
   - component: {fileID: 4372808789995813224}
+  - component: {fileID: 5481045074601163173}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -361,6 +362,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &5481045074601163173
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106276430747026751}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -9146618070568788744, guid: 94bf4710f1de7354b9b69054c56e1421, type: 3}
 --- !u!1 &1462071240947261466
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,8 +1049,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 8
 --- !u!65 &2064911946372878596
 BoxCollider:
@@ -1231,8 +1246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 0
 --- !u!65 &2202919220809632703
 BoxCollider:
@@ -1459,8 +1474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 2
 --- !u!65 &2227136888467019043
 BoxCollider:
@@ -1738,8 +1753,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 1
 --- !u!65 &2553570601087313371
 BoxCollider:
@@ -1853,8 +1868,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 9
 --- !u!65 &2881475392083269720
 BoxCollider:
@@ -2166,8 +2181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 6
 --- !u!65 &3465454968167457375
 BoxCollider:
@@ -2377,8 +2392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
 --- !u!1 &3982241276281662468
 GameObject:
   m_ObjectHideFlags: 0
@@ -2475,6 +2490,7 @@ GameObject:
   - component: {fileID: 8805564570031984319}
   - component: {fileID: 3711142533273987894}
   - component: {fileID: 2684518851594192404}
+  - component: {fileID: 5652517372935881092}
   m_Layer: 0
   m_Name: Machine
   m_TagString: Untagged
@@ -2545,6 +2561,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &5652517372935881092
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4275609344541162070}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 8074750411987931458, guid: 94bf4710f1de7354b9b69054c56e1421, type: 3}
 --- !u!1 &4310585608351741542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2643,8 +2673,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 5
 --- !u!65 &4310585608351741541
 BoxCollider:
@@ -3212,8 +3242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 7
 --- !u!65 &5461313583807435546
 BoxCollider:
@@ -3327,8 +3357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 4
 --- !u!65 &5635204664931459468
 BoxCollider:
@@ -3660,8 +3690,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
 --- !u!1 &6690056464137750881
 GameObject:
   m_ObjectHideFlags: 0
@@ -4319,8 +4349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textField: {fileID: 6690056464137750887}
-  _indexFinger: []
-  _fingerColliders: []
+  indexFinger: []
+  fingerColliders: []
   buttonNumber: 3
 --- !u!65 &8643057207907366703
 BoxCollider:
@@ -4516,6 +4546,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6450791260240122305, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
+        type: 3}
+      propertyPath: m_Name
+      value: VendingMachine
+      objectReference: {fileID: 0}
     - target: {fileID: 3237071924788982025, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
       propertyPath: m_Size.x
@@ -4665,11 +4700,6 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6450791260240122305, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
-        type: 3}
-      propertyPath: m_Name
-      value: VendingMachine
       objectReference: {fileID: 0}
     - target: {fileID: 8559536513788532736, guid: bf8f7dbbb0ed5c04ab15a7f2f160f0e1,
         type: 3}
