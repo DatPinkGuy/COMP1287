@@ -97,6 +97,7 @@ public class BuildingAndMovementScript : MonoBehaviour
                     }
                     _chosenBuilding = building;
                     _buildingParent = building.ParentTransform;
+                    Debug.Log(_buildingParent);
                     _currentAgent = null;
                     _chosenBuilding.MaterialChange();
                     break;
@@ -130,6 +131,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private void MoveObjectToRaycast()
     {
         _chosenBuilding.ObjectCollider.enabled = false;
+        _ray = new Ray(HandTransform.position,HandTransform.forward);
         if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
         {
             _buildingParent.position = _hit.point;
@@ -139,7 +141,7 @@ public class BuildingAndMovementScript : MonoBehaviour
             _buildingParent.position = _laserPointer.MovingPosition;
         }
         if (OVRInput.GetDown(OVRInput.Button.Two)) 
-        { 
+        {
             _buildingParent.transform.Rotate(0,15,0);
         }
         else if (OVRInput.GetDown(OVRInput.Button.One)) 
