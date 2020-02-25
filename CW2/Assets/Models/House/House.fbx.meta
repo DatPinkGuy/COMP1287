@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e82a527e0593d748a5968cea66a01d7
+guid: 61b5cda3dd2b3dc4ea44b56334078e7a
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
@@ -7,18 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: 6f344fff1578f7a4ea6b20501a68981a, type: 2}
+      name: Glass
+    second: {fileID: 2100000, guid: b308b865a7a15834b92a38899b447c69, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert2
-    second: {fileID: 2100000, guid: 0fe090487d8ab7740a0691bee81b3a49, type: 2}
+      name: Outside
+    second: {fileID: 2100000, guid: 8520e7f82367b8446bc04270a7bb1175, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Roof
+    second: {fileID: 2100000, guid: 1f3fcdee240e1c74fbfde7a4429d9001, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -46,7 +51,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
     importVisibility: 1
