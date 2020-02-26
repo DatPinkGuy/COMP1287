@@ -22,6 +22,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
+    private NavMeshHit _navMeshHit;
     private Ray _ray;
     private Transform _buildingParent;
     private int _layerMask = 1 << 8;
@@ -29,7 +30,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     private LaserPointer _laserPointer;
     private int _agentIndex = 0;
-    private Renderer AgentMaterial => _currentAgent.GetComponent<Renderer>();
+    private AgentCharacters CurrentAgentScript => _currentAgent.GetComponent<AgentCharacters>();
     private string Minutes => Mathf.Floor(timer / 60).ToString("00");
     private string Seconds => Mathf.Floor(timer % 60).ToString("00");
 
@@ -92,12 +93,11 @@ public class BuildingAndMovementScript : MonoBehaviour
                     if (building.Built) return;
                     if (_currentAgent)
                     {
-                        _currentAgent.destination = _hit.point;
+                        StartCoroutine(AgentMovement());
                         return;
                     }
                     _chosenBuilding = building;
                     _buildingParent = building.ParentTransform;
-                    Debug.Log(_buildingParent);
                     _currentAgent = null;
                     _chosenBuilding.MaterialChange();
                     break;
@@ -111,19 +111,19 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void ChangeCharacter()
     {
-        if(_currentAgent) AgentMaterial.material.DisableKeyword("_EMISSION");
+        if(_currentAgent) CurrentAgentScript.meshRenderer.material.DisableKeyword("_EMISSION");
         _agentIndex++;
         if (_agentIndex <= agents.Count)
         {
             _currentAgent = agents[_agentIndex-1];
-            AgentMaterial.material.EnableKeyword("_EMISSION");
+            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
         }
         else if (_agentIndex == agents.Count+1) _currentAgent = null;
         else
         {
             _agentIndex = 1;
             _currentAgent = agents[_agentIndex-1];
-            AgentMaterial.material.EnableKeyword("_EMISSION");
+            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
         }
         
     }
@@ -222,7 +222,10 @@ public class BuildingAndMovementScript : MonoBehaviour
     
     IEnumerator AgentMovement()
     {
-        _currentAgent.destination = _hit.point;
+        if (NavMesh.SamplePosition(_hit.point, out _navMeshHit, 50, NavMesh.AllAreas))
+        {
+            _currentAgent.destination = _navMeshHit.position;
+        }
         yield return null;
     }
 }

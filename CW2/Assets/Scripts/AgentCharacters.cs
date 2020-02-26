@@ -16,22 +16,25 @@ public class AgentCharacters : MonoBehaviour, IAgent
     public float maxHealth = 100;
     public float maxEnergy = 100;
     public float agentSpeed;
+    public Renderer meshRenderer;
     private BuildingAndMovementScript _mainScript;
+    private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
+    private bool _walkingState = false;
+    private static readonly int AgentWalking = Animator.StringToHash("Walking");
+    private NavMeshAgent _navMeshAgent; 
+    private Animator _agentAnimator;
+    [HideInInspector] public Action changeAnimation;
     [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;
     [SerializeField] private Image healthImage;
     [SerializeField] private Image energyImage;
     [SerializeField] private Canvas canvasBars;
-    public NavMeshAgent Agent => GetComponent<NavMeshAgent>();
     private float HealthBarValue
     {
-        get => healthImage.fillAmount;
         set => healthImage.fillAmount = value;
     }
-
     private float EnergyBarValue
     {
-        get => energyImage.fillAmount;
         set => energyImage.fillAmount = value;
     }
 
@@ -39,11 +42,27 @@ public class AgentCharacters : MonoBehaviour, IAgent
     void Start()
     {
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        _agentAnimator = GetComponent<Animator>();
+        _agentAnimator.SetBool(AgentWalking, _walkingState);
+        changeAnimation = IdleAnimation;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
+        {
+            if (Agent.hasPath) changeAnimation = MovingAnimation;
+            else changeAnimation = IdleAnimation;
+            changeAnimation();
+        }
+        else
+        {
+            changeAnimation = IdleAnimation;
+            changeAnimation();
+        }
         CheckStats();
         UseHealth();
         CheckIfOnLink();
@@ -100,5 +119,18 @@ public class AgentCharacters : MonoBehaviour, IAgent
     private void ChangeEnergyBar(float value, float maxValue)
     {
         EnergyBarValue = value / maxValue;
+    }
+
+    private void MovingAnimation()
+    {
+        _walkingState = true;
+        _agentAnimator.SetBool(AgentWalking,_walkingState);
+    }
+
+    private void IdleAnimation()
+    {
+        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day) Agent.ResetPath();
+        _walkingState = false;
+        _agentAnimator.SetBool(AgentWalking,_walkingState);
     }
 }

@@ -22,7 +22,7 @@ public class BuildingInfo : MonoBehaviour
     [SerializeField] private int neededWood;
     [SerializeField] private Material[] materials;
     [HideInInspector] public List<AgentCharacters> agents;
-    [HideInInspector] public List<AgentCharacters> buildingAgents;
+     public List<AgentCharacters> buildingAgents;
 
 
     private void Start()
@@ -35,6 +35,11 @@ public class BuildingInfo : MonoBehaviour
 
     private void Update()
     {
+        if (!ObjectCollider.enabled) 
+        {
+            buildingAgents.Clear();
+            return;
+        }
         CheckAgents();
         CheckBuild();
     }

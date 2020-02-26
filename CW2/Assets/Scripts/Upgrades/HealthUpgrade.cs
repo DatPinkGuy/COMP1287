@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class HealthUpgrade : UpgradeMain
 {
-    private bool _enoughCurrency;
-    private bool _bought;
+    private static bool _bought;
     private MeshRenderer ObjectMaterial => GetComponent<MeshRenderer>();
     [SerializeField] private int price;
     [SerializeField] private int healthIncrease;
@@ -35,6 +34,7 @@ public class HealthUpgrade : UpgradeMain
             agent.health += healthIncrease;
         }
         _bought = true;
+        mainScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];
     }
 }

@@ -21,7 +21,6 @@ public class EndZone : MonoBehaviour
     [SerializeField] private String gameWon;
     [SerializeField] private String gameLost;
     [HideInInspector] public List<AgentCharacters> agents;
-
     [HideInInspector] public List<AgentCharacters> agentsInside;
 
     // Start is called before the first frame update
@@ -38,15 +37,13 @@ public class EndZone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_gameEnd) return;
         RotateCanvas();
-        if (!_gameEnd)
-        {
-            CheckAliveAgents();
-            CheckAgentsInside();
-            if (_aliveAgents != 0) return;
-            _gameEnd = true;
-            text.text = gameLost;
-        }
+        CheckAliveAgents();
+        CheckAgentsInside();
+        if (_aliveAgents != 0) return;
+        _gameEnd = true;
+        text.text = gameLost;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -114,13 +111,11 @@ public class EndZone : MonoBehaviour
         if (Timer >= completionTimes.Last())
         {
             _mainScript.currency += rewardLevels.Last();
-            _mainScript.UpdateCurrency();
             starsForTime.First().enabled = true;
         }
         else if (Timer <= completionTimes.First())
         {
             _mainScript.currency += rewardLevels.First();
-            _mainScript.UpdateCurrency();
             foreach (var image in starsForTime)
             {
                 image.enabled = true;
@@ -129,13 +124,12 @@ public class EndZone : MonoBehaviour
         else
         {
             _mainScript.currency += rewardLevels[rewardLevels.Length / 2];
-            _mainScript.UpdateCurrency();
             for (int i = 0; i < starsForTime.Length-1; i++)
             {
                 starsForTime[i].enabled = true;
             }
         }
-
+        _mainScript.UpdateCurrency();
         enabled = false;
         yield return null;
     }
