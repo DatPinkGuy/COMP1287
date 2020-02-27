@@ -6,32 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class SceneChanging : MonoBehaviour
 {
-    private bool _levelAvailable = true;
+    public Action buttonPress;
     private static bool _sceneLoading;
-    private MeshRenderer MeshRenderer => GetComponent<MeshRenderer>();
     private Renderer FadeMaterial => fadeObject.GetComponent<Renderer>();
     private Color FadeMaterialColor
     {
         get => FadeMaterial.material.color;
         set => FadeMaterial.material.color = value;
     }
-
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject fadeObject;
-    [SerializeField] private Material[] materials;
-    [SerializeField] private int levelNumber;
+
 
     private void Start()
     {
-        if (SceneManager.GetActiveScene().buildIndex == levelNumber)
-        {
-            MeshRenderer.material = materials[1];
-            _levelAvailable = false;
-        }
-        else
-        {
-            MeshRenderer.material = materials[0];
-        }
         if (_sceneLoading)
         {
             var fadeMaterialColor = FadeMaterial.material.color;
@@ -45,16 +33,10 @@ public class SceneChanging : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public IEnumerator ChangeLevel(SceneButton button)
     {
-        if (_sceneLoading) return;
-        if (!_levelAvailable) return;
-        StartCoroutine(ChangeLevel());
-    }
-
-    private IEnumerator ChangeLevel()
-    {
-        MeshRenderer.material.EnableKeyword("_EMISSION");
+        if (_sceneLoading) StopCoroutine(ChangeLevel(button));
+        button.MeshRenderer.material.EnableKeyword("_EMISSION");
         fadeObject.SetActive(true);
         var fadeMaterialColor = FadeMaterialColor;
         _sceneLoading = true;
@@ -70,12 +52,13 @@ public class SceneChanging : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(levelNumber);
+        SceneManager.LoadScene(button.levelNumber);
         enabled = false;
     }
 
     private IEnumerator UndoFade()
     {
+        audioSource.Play();
         var fadeMaterialColor = FadeMaterialColor;
         yield return new WaitForSeconds(2);
         while (fadeMaterialColor.a > 0)
