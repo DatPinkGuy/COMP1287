@@ -99,7 +99,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
         health += pickUp.healthAmount;
         pickUp.Destroy();
     }
-
+ 
     private void CheckIfOnLink()
     {
         if (Agent.isOnOffMeshLink) Agent.speed = agentSpeed/2;
@@ -129,7 +129,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
 
     private void IdleAnimation()
     {
-        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day) Agent.ResetPath();
+        //if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day) Agent.ResetPath();
         _walkingState = false;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
     }
