@@ -6,13 +6,15 @@ using UnityEngine;
 
 public class DoorAnimation : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
     private List<IndexFinger> _indexFinger = new List<IndexFinger>();
     private List<Collider> _fingerColliders = new List<Collider>();
     private static bool _doorState;
     private bool _animationStarted;
     private Renderer _buttonRenderer;
     private static readonly int DoorOpen = Animator.StringToHash("doorOpen");
+    [SerializeField] private Animator animator;
+    [SerializeField] private AudioSource audioSource;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +48,8 @@ public class DoorAnimation : MonoBehaviour
     {
         _animationStarted = true;
         _buttonRenderer.material.EnableKeyword("_EMISSION");
+        yield return new WaitForSeconds(0.5f);
+        if(audioSource) audioSource.Play();
         _doorState = !_doorState;
         animator.SetBool(DoorOpen, _doorState);
         yield return new WaitForSeconds(3);
