@@ -20,12 +20,6 @@ public class UpgradeButtonManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public virtual void ButtonPress()
     {
         

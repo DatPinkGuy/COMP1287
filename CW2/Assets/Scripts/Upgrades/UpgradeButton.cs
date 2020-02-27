@@ -36,6 +36,6 @@ public class UpgradeButton : UpgradeButtonManager
         if (textField.text.Length == 2) return;
         var currentText = textField.text;
         textField.text = null;
-        textField.text = currentText + buttonNumber.ToString();
+        textField.text = currentText + buttonNumber;
     }
 }

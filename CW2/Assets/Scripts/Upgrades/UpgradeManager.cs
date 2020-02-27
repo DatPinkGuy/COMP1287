@@ -21,13 +21,6 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-
     private void OnTriggerEnter(Collider other)
     {
         foreach (var finger in _fingerColliders)
