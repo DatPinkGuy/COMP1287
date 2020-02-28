@@ -13,44 +13,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 540, y: 251.02292, z: 1050}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!191 &6867490795125805265
-OffMeshLink:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3202014703753612358}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_AreaIndex: 0
-  m_AgentTypeID: 0
-  m_Start: {fileID: 6867490796521803345}
-  m_End: {fileID: 6867490795243179123}
-  m_CostOverride: -1
-  m_BiDirectional: 1
-  m_Activated: 1
-  m_AutoUpdatePositions: 1
---- !u!114 &6867490795125805264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3202014703753612358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e664e21c8bb9a13499c76dbfbcb3197f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  neededAmount: 100
-  currentAmount: 0
-  buildSpeed: 10
-  neededWood: 50
-  materials:
-  - {fileID: 2100000, guid: 273c672a2b0ad984e9d05932a7fa8462, type: 2}
-  - {fileID: 2100000, guid: af694c71502638a419df2e9956413095, type: 2}
-  agents: []
-  buildingAgents: []
 --- !u!82 &2955890395030271697
 AudioSource:
   m_ObjectHideFlags: 0
@@ -61,7 +23,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9d671dacbd9dc704eb1705756f442481, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e01e1eea7e6860b48abd04c89e5b1c81, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -147,6 +109,44 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!191 &6867490795125805265
+OffMeshLink:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202014703753612358}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_AreaIndex: 0
+  m_AgentTypeID: 0
+  m_Start: {fileID: 6867490796521803345}
+  m_End: {fileID: 6867490795243179123}
+  m_CostOverride: -1
+  m_BiDirectional: 1
+  m_Activated: 1
+  m_AutoUpdatePositions: 1
+--- !u!114 &6867490795125805264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3202014703753612358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e664e21c8bb9a13499c76dbfbcb3197f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neededAmount: 100
+  currentAmount: 0
+  buildSpeed: 10
+  neededWood: 50
+  materials:
+  - {fileID: 2100000, guid: 273c672a2b0ad984e9d05932a7fa8462, type: 2}
+  - {fileID: 2100000, guid: af694c71502638a419df2e9956413095, type: 2}
+  agents: []
+  buildingAgents: []
 --- !u!1 &6867490795243179124
 GameObject:
   m_ObjectHideFlags: 0

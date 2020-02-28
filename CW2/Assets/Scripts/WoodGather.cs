@@ -56,6 +56,12 @@ public class WoodGather : MonoBehaviour
             _audioSource.Play();
             _soundTimer = 0;
         }
+        
+        foreach (var agent in buildingAgents)
+        {
+            agent.changeAnimation = agent.BuildingAnimation;
+            agent.changeAnimation();
+        }
     }
 
     private void CheckUse()
@@ -77,6 +83,11 @@ public class WoodGather : MonoBehaviour
         {
             _mainScript.woodCount += woodAmount;
             _mainScript.UpdateWood();
+            foreach (var agent in buildingAgents)
+            {
+                agent.changeAnimation = agent.ResetBuildingAnimation;
+                agent.changeAnimation();
+            }
             gameObject.SetActive(false);
         }
     }

@@ -22,11 +22,13 @@ public class AgentCharacters : MonoBehaviour, IAgent
     private bool _walkingState = false;
     private bool _resetPath;
     private static readonly int AgentWalking = Animator.StringToHash("Walking");
+    private static readonly int AgentBuilding = Animator.StringToHash("Building");
     private NavMeshAgent _navMeshAgent; 
     private Animator _agentAnimator;
     [HideInInspector] public Action changeAnimation;
     [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;
+    [HideInInspector] public bool buildingState = false;
     [SerializeField] private Image healthImage;
     [SerializeField] private Image energyImage;
     [SerializeField] private Canvas canvasBars;
@@ -56,6 +58,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
         if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
         {
             if (Agent.hasPath) changeAnimation = MovingAnimation;
+            else if (changeAnimation == BuildingAnimation) {}
             else changeAnimation = IdleAnimation;
             changeAnimation();
         }
@@ -124,8 +127,10 @@ public class AgentCharacters : MonoBehaviour, IAgent
 
     private void MovingAnimation()
     {
+        buildingState = false;
         _walkingState = true;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _agentAnimator.SetBool(AgentBuilding,buildingState);
         _resetPath = false;
     }
 
@@ -137,6 +142,21 @@ public class AgentCharacters : MonoBehaviour, IAgent
             _resetPath = true;
         }
         _walkingState = false;
+        buildingState = false;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _agentAnimator.SetBool(AgentBuilding,buildingState);
+    }
+
+    public void BuildingAnimation()
+    {
+        buildingState = true;
+        _walkingState = false;
+        _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _agentAnimator.SetBool(AgentBuilding,buildingState);
+    }
+
+    public void ResetBuildingAnimation()
+    {
+        buildingState = false;
     }
 }

@@ -33,6 +33,7 @@ public class HealthUpgrade : UpgradeMain
             agent.maxHealth += healthIncrease;
             agent.health += healthIncrease;
         }
+        mainScript.currency -= price;
         _bought = true;
         mainScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];

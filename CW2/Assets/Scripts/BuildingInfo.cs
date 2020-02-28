@@ -69,11 +69,18 @@ public class BuildingInfo : MonoBehaviour
     {
         if (Built) return;
         if (buildingAgents.Count <= 0) return;
+        if (_mainScript.woodCount < neededWood) return;
         _soundTimer += Time.deltaTime;
         if (_soundTimer > 1f)
         {
             _audioSource.Play();
             _soundTimer = 0;
+        }
+
+        foreach (var agent in buildingAgents)
+        {
+            agent.changeAnimation = agent.BuildingAnimation;
+            agent.changeAnimation();
         }
     }
 
@@ -123,7 +130,16 @@ public class BuildingInfo : MonoBehaviour
 
     private void CheckAgents()
     {
-        if (Built || buildingAgents.Count == 0) return;
+        if (buildingAgents.Count == 0) return;
+        if (Built)
+        {
+            foreach (var agent in buildingAgents)
+            {
+                agent.changeAnimation = agent.ResetBuildingAnimation;
+                agent.changeAnimation();
+            }
+            return;
+        }
         foreach (var agent in buildingAgents)
         {
             if (!agent.gameObject.activeSelf) buildingAgents.Remove(agent);

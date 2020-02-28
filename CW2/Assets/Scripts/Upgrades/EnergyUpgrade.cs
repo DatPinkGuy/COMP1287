@@ -29,6 +29,7 @@ public class EnergyUpgrade : UpgradeMain
             agent.maxEnergy += energyIncrease;
             agent.energy += energyIncrease;
         }
+        mainScript.currency -= price;
         _bought = true;
         mainScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];
