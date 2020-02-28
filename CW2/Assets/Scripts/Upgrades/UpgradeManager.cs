@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
 {
+    private AudioSource ButtonClick => GetComponent<AudioSource>();
     private readonly List<IndexFinger> _indexFinger = new List<IndexFinger>();
     private readonly List<Collider> _fingerColliders = new List<Collider>();
     [SerializeField] private UpgradeButtonManager buttonManager;
@@ -26,6 +27,7 @@ public class UpgradeManager : MonoBehaviour
         foreach (var finger in _fingerColliders)
         {
             if (other != finger) continue;
+            if(ButtonClick) ButtonClick.Play();
             foreach (var upgrade in listOfUpgrades)
             {
                 if (upgrade.upgradeNumber == 0) return;

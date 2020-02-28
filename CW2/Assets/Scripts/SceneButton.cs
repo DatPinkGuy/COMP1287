@@ -9,12 +9,14 @@ public class SceneButton : MonoBehaviour
     public int levelNumber;
     public Material[] materials;
     public MeshRenderer MeshRenderer => GetComponent<MeshRenderer>();
+    [HideInInspector] public AudioSource buttonClick;
     private bool _levelAvailable = true;
     private SceneChanging _sceneChanging;
     // Start is called before the first frame update
     void Start()
     {
         _sceneChanging = FindObjectOfType<SceneChanging>();
+        buttonClick = GetComponent<AudioSource>();
         if (SceneManager.GetActiveScene().buildIndex == levelNumber)
         {
             MeshRenderer.material = materials[1];

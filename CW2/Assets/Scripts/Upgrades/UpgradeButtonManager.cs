@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UpgradeButtonManager : MonoBehaviour
 {
     public Text textField;
+    protected AudioSource ButtonClick => GetComponent<AudioSource>();
     [HideInInspector] public List<IndexFinger> indexFinger = new List<IndexFinger>();
     [HideInInspector] public List<Collider> fingerColliders = new List<Collider>();
     // Start is called before the first frame update
@@ -30,6 +31,7 @@ public class UpgradeButtonManager : MonoBehaviour
         foreach (var finger in fingerColliders)
         {
             if (other != finger) continue;
+            if (ButtonClick) ButtonClick.Play();
             textField.text = null;
         }
     }

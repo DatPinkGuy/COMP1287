@@ -37,6 +37,7 @@ public class SceneChanging : MonoBehaviour
     {
         if (_sceneLoading) StopCoroutine(ChangeLevel(button));
         button.MeshRenderer.material.EnableKeyword("_EMISSION");
+        if(button.buttonClick) button.buttonClick.Play();
         fadeObject.SetActive(true);
         var fadeMaterialColor = FadeMaterialColor;
         _sceneLoading = true;

@@ -20,6 +20,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     private BuildingAndMovementScript _mainScript;
     private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
     private bool _walkingState = false;
+    private bool _resetPath;
     private static readonly int AgentWalking = Animator.StringToHash("Walking");
     private NavMeshAgent _navMeshAgent; 
     private Animator _agentAnimator;
@@ -125,11 +126,16 @@ public class AgentCharacters : MonoBehaviour, IAgent
     {
         _walkingState = true;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _resetPath = false;
     }
 
     private void IdleAnimation()
     {
-        //if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day) Agent.ResetPath();
+        if (!_resetPath)
+        {
+            if(_mainScript.cycle == BuildingAndMovementScript.Cycle.Day) Agent.ResetPath();
+            _resetPath = true;
+        }
         _walkingState = false;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
     }

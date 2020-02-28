@@ -27,6 +27,7 @@ public class UpgradeButton : UpgradeButtonManager
         foreach (var finger in fingerColliders)
         {
             if (other != finger) continue;
+            if (ButtonClick) ButtonClick.Play();
             ButtonPress();
         }
     }

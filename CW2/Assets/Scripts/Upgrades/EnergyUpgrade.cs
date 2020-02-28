@@ -20,12 +20,6 @@ public class EnergyUpgrade : UpgradeMain
         ObjectMaterial.material = !_bought ? materials[0] : materials[1];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void UseUpgrade()
     {
         if (_bought) return;
@@ -36,6 +30,7 @@ public class EnergyUpgrade : UpgradeMain
             agent.energy += energyIncrease;
         }
         _bought = true;
+        mainScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];
     }
 }
