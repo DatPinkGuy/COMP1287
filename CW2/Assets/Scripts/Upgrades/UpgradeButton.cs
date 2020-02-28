@@ -9,7 +9,11 @@ public class UpgradeButton : UpgradeButtonManager
     // Start is called before the first frame update
     void Start()
     {
-        
+        indexFinger.AddRange(FindObjectsOfType<IndexFinger>());
+        foreach (var finger in indexFinger)
+        {
+            fingerColliders.Add(finger.GetComponent<Collider>());
+        }
     }
 
     // Update is called once per frame
@@ -20,7 +24,12 @@ public class UpgradeButton : UpgradeButtonManager
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other == collider) ButtonPress();
+        foreach (var finger in fingerColliders)
+        {
+            if (other != finger) continue;
+            if (ButtonClick) ButtonClick.Play();
+            ButtonPress();
+        }
     }
 
     public override void ButtonPress()
@@ -28,6 +37,6 @@ public class UpgradeButton : UpgradeButtonManager
         if (textField.text.Length == 2) return;
         var currentText = textField.text;
         textField.text = null;
-        textField.text = currentText + buttonNumber.ToString();
+        textField.text = currentText + buttonNumber;
     }
 }

@@ -12,11 +12,14 @@ public class WoodGather : MonoBehaviour
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
     private BuildingAndMovementScript _mainScript;
+    private AudioSource _audioSource;
+    private float _soundTimer;
     // Start is called before the first frame update
     void Start()
     {
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,6 +47,17 @@ public class WoodGather : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(buildingAgents.Count <= 0) return;
+        _soundTimer += Time.deltaTime;
+        if (_soundTimer > 1f)
+        {
+            _audioSource.Play();
+            _soundTimer = 0;
+        }
+    }
+
     private void CheckUse()
     {
         StartCoroutine(CuttingProgress());
@@ -62,6 +76,7 @@ public class WoodGather : MonoBehaviour
         if (currentAmount >= neededAmount)
         {
             _mainScript.woodCount += woodAmount;
+            _mainScript.UpdateWood();
             gameObject.SetActive(false);
         }
     }

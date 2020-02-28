@@ -1,37 +1,36 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using OVRTouchSample;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour
 {
-    [Header("Current Agent/Object selected")]
-    public BuildingInfo chosenBuilding;
-    public NavMeshAgent currentAgent;
-    public enum Cycle
-    {
-        Day,
-        Night
-    }
+    public enum Cycle { Day, Night }
     public Cycle cycle;
-    public int currency;
+    public Camera centerCamera;
     [HideInInspector] public int woodCount;
     [HideInInspector] public float timer;
     [HideInInspector] public bool gameActive;
+    [HideInInspector] public int currency;
+    private BuildingInfo _chosenBuilding;
+    private NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
     private RaycastHit _hit;
+    private NavMeshHit _navMeshHit;
     private Ray _ray;
-    private Collider _collider;
     private Transform _buildingParent;
     private int _layerMask = 1 << 8;
     private Transform HandTransform => rightHand.transform;
-    private BuildingInfo PressedBuilding => _hit.transform.GetComponent<BuildingInfo>();
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     private LaserPointer _laserPointer;
+    private int _agentIndex = 0;
+    private AgentCharacters CurrentAgentScript => _currentAgent.GetComponent<AgentCharacters>();
     private string Minutes => Mathf.Floor(timer / 60).ToString("00");
     private string Seconds => Mathf.Floor(timer % 60).ToString("00");
 
@@ -39,6 +38,7 @@ public class BuildingAndMovementScript : MonoBehaviour
     [SerializeField] private Hand rightHand;
     [SerializeField] private Hand leftHand;
     [SerializeField] private GameObject menuGameObject;
+    [SerializeField] private GameObject bigMenuGameObject;
     [SerializeField] private List<NavMeshAgent> agents;
     [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
@@ -64,26 +64,74 @@ public class BuildingAndMovementScript : MonoBehaviour
     void Update()
     {
         OpenMenu();
+        if (OVRInput.GetDown(OVRInput.Button.Four)) ChangeCharacter();
         BuildingCharacterLogic();
-        if (OVRInput.GetDown(OVRInput.Button.Two))
+        if (OVRInput.GetDown(OVRInput.Button.Three))
         {
             gameActive = true;
             DayNightSwitch();
         }
         DayNightCycle();
-        if (chosenBuilding)
+        if (_chosenBuilding)
         {
             MoveObjectToRaycast();
             PlaceObject();
         }
-        UpdateCurrency();
-        UpdateWood();
         if(gameActive) UpdateTimer();
+    }
+    
+    private void BuildingCharacterLogic()
+    {
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        {
+            _ray = new Ray(HandTransform.position,HandTransform.forward);
+            if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
+            {
+                foreach (var building in buildings)
+                {
+                    if (building.ThisTransform != _hit.transform) continue;
+                    if (building.Built) return;
+                    if (_currentAgent)
+                    {
+                        StartCoroutine(AgentMovement());
+                        return;
+                    }
+                    _chosenBuilding = building;
+                    _buildingParent = building.ParentTransform;
+                    _currentAgent = null;
+                    _chosenBuilding.MaterialChange();
+                    break;
+
+                }
+                if (!_currentAgent) return;
+                StartCoroutine(AgentMovement());
+            }
+        }
+    }
+
+    private void ChangeCharacter()
+    {
+        if(_currentAgent) CurrentAgentScript.meshRenderer.material.DisableKeyword("_EMISSION");
+        _agentIndex++;
+        if (_agentIndex <= agents.Count)
+        {
+            _currentAgent = agents[_agentIndex-1];
+            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
+        }
+        else if (_agentIndex == agents.Count+1) _currentAgent = null;
+        else
+        {
+            _agentIndex = 1;
+            _currentAgent = agents[_agentIndex-1];
+            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
+        }
+        
     }
     
     private void MoveObjectToRaycast()
     {
-        _collider.enabled = false;
+        _chosenBuilding.ObjectCollider.enabled = false;
+        _ray = new Ray(HandTransform.position,HandTransform.forward);
         if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
         {
             _buildingParent.position = _hit.point;
@@ -92,11 +140,11 @@ public class BuildingAndMovementScript : MonoBehaviour
         {
             _buildingParent.position = _laserPointer.MovingPosition;
         }
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickUp)) 
-        { 
+        if (OVRInput.GetDown(OVRInput.Button.Two)) 
+        {
             _buildingParent.transform.Rotate(0,15,0);
         }
-        else if (OVRInput.GetDown(OVRInput.Button.SecondaryThumbstickDown)) 
+        else if (OVRInput.GetDown(OVRInput.Button.One)) 
         { 
             _buildingParent.transform.Rotate(0, -15, 0);
         }
@@ -105,11 +153,10 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void PlaceObject()
     {
-        if (chosenBuilding && OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
+        if (_chosenBuilding && OVRInput.GetUp(OVRInput.Button.SecondaryIndexTrigger))
         {
-            _collider.enabled = true;
-            chosenBuilding.placed = true;
-            chosenBuilding = null;
+            _chosenBuilding.ObjectCollider.enabled = true;
+            _chosenBuilding = null;
             _buildingParent = null;
         }
     }
@@ -145,40 +192,9 @@ public class BuildingAndMovementScript : MonoBehaviour
         }
     }
 
-    private void BuildingCharacterLogic()
-    {
-        _ray = new Ray(HandTransform.position,HandTransform.forward);
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            if (Physics.Raycast(_ray, out _hit, 10, _layerMask))
-            {
-                foreach (var building in buildings)
-                {
-                    if (building.ThisTransform != _hit.transform) continue;
-                    if (building.placed != false) continue;
-                    chosenBuilding = building;
-                    _collider = building.ObjectCollider;
-                    _buildingParent = building.ParentTransform;
-                    currentAgent = null;
-                    chosenBuilding.MaterialChange();
-                    break;
-
-                }
-                foreach (var agent in agents)
-                {
-                    if (agent.transform != _hit.transform) continue;
-                    currentAgent = agent;
-                    return;
-                }
-                if (!currentAgent) return;
-                StartCoroutine(AgentMovement());
-            }
-        }
-    }
-
     private void OpenMenu()
     {
-        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40)
+        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40 && !bigMenuGameObject.activeSelf)
         {
             menuGameObject.SetActive(true);
         }
@@ -188,33 +204,28 @@ public class BuildingAndMovementScript : MonoBehaviour
         }
     }
 
-    private void UpdateCurrency()
+    public void UpdateCurrency()
     {
         currencyText.text = currency.ToString();
     }
 
-    private void UpdateTimer()
-    {
-        if (gameActive)
-        {
-            timer += Time.deltaTime;
-            timerText.text = Minutes + ":" + Seconds;
-        }
-    }
-
-    private void UpdateWood()
+    public void UpdateWood()
     {
         woodText.text = woodCount.ToString();
     }
-
+    
+    private void UpdateTimer()
+    {
+        timer += Time.deltaTime;
+        timerText.text = Minutes + ":" + Seconds;
+    }
+    
     IEnumerator AgentMovement()
     {
-//        if (PressedBuilding)
-//        {
-//            currentAgent.destination = PressedBuilding.ParentTransform.position;
-//        }
-//        else 
-        currentAgent.destination = _hit.point;
+        if (NavMesh.SamplePosition(_hit.point, out _navMeshHit, 50, NavMesh.AllAreas))
+        {
+            _currentAgent.destination = _navMeshHit.position;
+        }
         yield return null;
     }
 }
