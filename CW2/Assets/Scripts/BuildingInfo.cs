@@ -19,10 +19,12 @@ public class BuildingInfo : MonoBehaviour
     private OffMeshLink OffMeshLink => GetComponent<OffMeshLink>();
     private BuildingAndMovementScript _mainScript;
     private bool _removedWood;
+    private AudioSource _audioSource;
+    private float _soundTimer;
     [SerializeField] private int neededWood;
     [SerializeField] private Material[] materials;
     [HideInInspector] public List<AgentCharacters> agents;
-     public List<AgentCharacters> buildingAgents;
+    [HideInInspector] public List<AgentCharacters> buildingAgents;
 
 
     private void Start()
@@ -31,6 +33,7 @@ public class BuildingInfo : MonoBehaviour
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         OffMeshLink.enabled = false;
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -59,6 +62,18 @@ public class BuildingInfo : MonoBehaviour
         {
             if (other.gameObject != agent.gameObject) continue;
             buildingAgents.Remove(agent);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Built) return;
+        if (buildingAgents.Count <= 0) return;
+        _soundTimer += Time.deltaTime;
+        if (_soundTimer > 1f)
+        {
+            _audioSource.Play();
+            _soundTimer = 0;
         }
     }
 
