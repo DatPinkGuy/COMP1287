@@ -6,7 +6,6 @@ using OVRTouchSample;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour

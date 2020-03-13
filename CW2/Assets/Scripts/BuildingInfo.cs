@@ -58,7 +58,7 @@ public class BuildingInfo : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        foreach (var agent in buildingAgents)
+        foreach (var agent in buildingAgents.ToList())
         {
             if (other.gameObject != agent.gameObject) continue;
             buildingAgents.Remove(agent);
@@ -77,7 +77,7 @@ public class BuildingInfo : MonoBehaviour
             _soundTimer = 0;
         }
 
-        foreach (var agent in buildingAgents)
+        foreach (var agent in buildingAgents.ToList())
         {
             agent.changeAnimation = agent.BuildingAnimation;
             agent.changeAnimation();
@@ -133,14 +133,14 @@ public class BuildingInfo : MonoBehaviour
         if (buildingAgents.Count == 0) return;
         if (Built)
         {
-            foreach (var agent in buildingAgents)
+            foreach (var agent in buildingAgents.ToList())
             {
                 agent.changeAnimation = agent.ResetBuildingAnimation;
                 agent.changeAnimation();
             }
             return;
         }
-        foreach (var agent in buildingAgents)
+        foreach (var agent in buildingAgents.ToList())
         {
             if (!agent.gameObject.activeSelf) buildingAgents.Remove(agent);
         }

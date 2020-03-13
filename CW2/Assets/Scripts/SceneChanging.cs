@@ -16,6 +16,11 @@ public class SceneChanging : MonoBehaviour
     }
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject fadeObject;
+    public bool SceneLoading
+    {
+        get => _sceneLoading;
+        set => _sceneLoading = value;
+    }
 
 
     private void Start()
