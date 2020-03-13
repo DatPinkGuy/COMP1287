@@ -3129,6 +3129,7 @@ GameObject:
   - component: {fileID: 6222148650201544486}
   - component: {fileID: 6222148650201544484}
   - component: {fileID: 6222148650201544487}
+  - component: {fileID: 8202446715813839221}
   m_Layer: 0
   m_Name: Watch
   m_TagString: Untagged
@@ -3199,6 +3200,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8202446715813839221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222148650201544409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79e9c11aaaa04194dbd1ca1b3441d590, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  woodCount: 0
+  timer: 0
+  currency: 0
+  menuGameObject: {fileID: 6222148650155698291}
+  bigMenuGameObject: {fileID: 6222148651168319254}
+  leftHand: {fileID: 6222148649676834628}
+  currencyText: {fileID: 6222148650618675040}
+  timerText: {fileID: 6222148651628177374}
+  woodText: {fileID: 6222148651035924694}
 --- !u!1 &6222148650208083369
 GameObject:
   m_ObjectHideFlags: 0
@@ -6617,20 +6639,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cycle: 0
   centerCamera: {fileID: 6222148651192075783}
-  woodCount: 0
-  timer: 0
-  gameActive: 0
-  currency: 0
   rightHand: {fileID: 6222148650058808802}
-  leftHand: {fileID: 6222148649676834628}
-  menuGameObject: {fileID: 6222148650155698291}
-  bigMenuGameObject: {fileID: 6222148651168319254}
   agents: []
   agentCharacter: []
   buildings: []
-  currencyText: {fileID: 6222148650618675040}
-  timerText: {fileID: 6222148651628177374}
-  woodText: {fileID: 6222148651035924694}
 --- !u!114 &6222148650752226281
 MonoBehaviour:
   m_ObjectHideFlags: 0

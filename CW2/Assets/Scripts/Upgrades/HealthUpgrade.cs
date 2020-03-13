@@ -13,29 +13,23 @@ public class HealthUpgrade : UpgradeMain
     // Start is called before the first frame update
     void Start()
     {
-        mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        watchScript = FindObjectOfType<Watch>();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         ObjectMaterial.material = !_bought ? materials[0] : materials[1];
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public override void UseUpgrade()
     {
         if (_bought) return;
-        if (mainScript.currency < price) return;
+        if (watchScript.currency < price) return;
         foreach (var agent in agents)
         {
             agent.maxHealth += healthIncrease;
             agent.health += healthIncrease;
         }
-        mainScript.currency -= price;
+        watchScript.currency -= price;
         _bought = true;
-        mainScript.UpdateCurrency();
+        watchScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];
     }
 }

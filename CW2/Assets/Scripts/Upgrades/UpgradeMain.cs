@@ -7,11 +7,11 @@ public class UpgradeMain : MonoBehaviour
 {
     public int upgradeNumber;
     public Material[] materials;
-    public BuildingAndMovementScript mainScript;
+    public Watch watchScript;
 
     private void Start()
     {
-        mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        watchScript = FindObjectOfType<Watch>();
     }
 
     public virtual void UseUpgrade()

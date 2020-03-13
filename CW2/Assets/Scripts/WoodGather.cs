@@ -11,14 +11,14 @@ public class WoodGather : MonoBehaviour
     public int woodAmount;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
-    private BuildingAndMovementScript _mainScript;
+    private Watch _watchSCript;
     private AudioSource _audioSource;
     private float _soundTimer;
     // Start is called before the first frame update
     void Start()
     {
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
-        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _watchSCript = FindObjectOfType<Watch>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -81,8 +81,8 @@ public class WoodGather : MonoBehaviour
     {
         if (currentAmount >= neededAmount)
         {
-            _mainScript.woodCount += woodAmount;
-            _mainScript.UpdateWood();
+            _watchSCript.woodCount += woodAmount;
+            _watchSCript.UpdateWood();
             foreach (var agent in buildingAgents)
             {
                 agent.changeAnimation = agent.ResetBuildingAnimation;

@@ -17,7 +17,7 @@ public class BuildingInfo : MonoBehaviour
     private MeshRenderer ObjectMaterial => gameObject.GetComponent<MeshRenderer>();
     public bool Built => neededAmount <= currentAmount;
     private OffMeshLink OffMeshLink => GetComponent<OffMeshLink>();
-    private BuildingAndMovementScript _mainScript;
+    private Watch _watchScript;
     private bool _removedWood;
     private AudioSource _audioSource;
     private float _soundTimer;
@@ -32,7 +32,7 @@ public class BuildingInfo : MonoBehaviour
         ObjectMaterial.material = materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         OffMeshLink.enabled = false;
-        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _watchScript = FindObjectOfType<Watch>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -69,7 +69,7 @@ public class BuildingInfo : MonoBehaviour
     {
         if (Built) return;
         if (buildingAgents.Count <= 0) return;
-        if (_mainScript.woodCount < neededWood) return;
+        if (_watchScript.woodCount < neededWood) return;
         _soundTimer += Time.deltaTime;
         if (_soundTimer > 1f)
         {
@@ -94,7 +94,7 @@ public class BuildingInfo : MonoBehaviour
             return;
         }
         if (buildingAgents.Count == 0) return;
-        if (!_removedWood && _mainScript.woodCount >= neededWood)
+        if (!_removedWood && _watchScript.woodCount >= neededWood)
         {
             BuildingProcess();
         }
@@ -123,8 +123,8 @@ public class BuildingInfo : MonoBehaviour
     private void RemoveWood()
     {
         if (_removedWood) return;
-        _mainScript.woodCount -= neededWood;
-        _mainScript.UpdateWood();
+        _watchScript.woodCount -= neededWood;
+        _watchScript.UpdateWood();
         _removedWood = true;
     }
 

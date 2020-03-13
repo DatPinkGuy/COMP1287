@@ -10,7 +10,8 @@ public class EndZone : MonoBehaviour
 {
     private bool _gameEnd;
     private int _aliveAgents;
-    private float Timer => _mainScript.timer;
+    private float Timer => _watchScript.timer;
+    private Watch _watchScript;
     private BuildingAndMovementScript _mainScript;
     [SerializeField] private int requiredAgents;
     [SerializeField] private float[] completionTimes;
@@ -27,6 +28,7 @@ public class EndZone : MonoBehaviour
     void Start()
     {
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _watchScript = FindObjectOfType<Watch>();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         foreach (var image in starsForTime)
         {
@@ -88,7 +90,7 @@ public class EndZone : MonoBehaviour
         {
             if (_aliveAgents >= requiredAgents)
             {
-                _mainScript.gameActive = false;
+                _mainScript.GameActive = false;
                 text.text = gameWon;
                 StartCoroutine(GameWon());
             }
@@ -110,12 +112,12 @@ public class EndZone : MonoBehaviour
     {
         if (Timer >= completionTimes.Last())
         {
-            _mainScript.currency += rewardLevels.Last();
+            _watchScript.currency += rewardLevels.Last();
             starsForTime.First().enabled = true;
         }
         else if (Timer <= completionTimes.First())
         {
-            _mainScript.currency += rewardLevels.First();
+            _watchScript.currency += rewardLevels.First();
             foreach (var image in starsForTime)
             {
                 image.enabled = true;
@@ -123,13 +125,13 @@ public class EndZone : MonoBehaviour
         }
         else
         {
-            _mainScript.currency += rewardLevels[rewardLevels.Length / 2];
+            _watchScript.currency += rewardLevels[rewardLevels.Length / 2];
             for (int i = 0; i < starsForTime.Length-1; i++)
             {
                 starsForTime[i].enabled = true;
             }
         }
-        _mainScript.UpdateCurrency();
+        _watchScript.UpdateCurrency();
         enabled = false;
         yield return null;
     }

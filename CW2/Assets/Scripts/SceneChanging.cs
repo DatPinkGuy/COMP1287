@@ -9,17 +9,17 @@ public class SceneChanging : MonoBehaviour
     public Action buttonPress;
     private static bool _sceneLoading;
     private Renderer FadeMaterial => fadeObject.GetComponent<Renderer>();
-    private Color FadeMaterialColor
-    {
-        get => FadeMaterial.material.color;
-        set => FadeMaterial.material.color = value;
-    }
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject fadeObject;
     public bool SceneLoading
     {
         get => _sceneLoading;
         set => _sceneLoading = value;
+    }
+    private Color FadeMaterialColor
+    {
+        get => FadeMaterial.material.color;
+        set => FadeMaterial.material.color = value;
     }
 
 
@@ -62,6 +62,23 @@ public class SceneChanging : MonoBehaviour
         enabled = false;
     }
 
+    private IEnumerator ChangeLevel()
+    {
+        if (_sceneLoading) yield break;
+        _sceneLoading = true;
+        fadeObject.SetActive(true);
+        var fadeMaterialColor = FadeMaterialColor;
+        yield return new WaitForSeconds(2);
+        while (fadeMaterialColor.a < 1)
+        {
+            fadeMaterialColor.a += 1f * Time.deltaTime;
+            FadeMaterialColor = fadeMaterialColor;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        enabled = false;
+    }
     private IEnumerator UndoFade()
     {
         audioSource.Play();
@@ -76,5 +93,10 @@ public class SceneChanging : MonoBehaviour
         fadeObject.SetActive(false);
         _sceneLoading = false;
         yield return null;
+    }
+    
+    public void RestartButton()
+    {
+        StartCoroutine(ChangeLevel());
     }
 }
