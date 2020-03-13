@@ -35,12 +35,12 @@ public class SceneChanging : MonoBehaviour
 
     public IEnumerator ChangeLevel(SceneButton button)
     {
-        if (_sceneLoading) StopCoroutine(ChangeLevel(button));
+        if (_sceneLoading) yield break;
+        _sceneLoading = true;
         button.MeshRenderer.material.EnableKeyword("_EMISSION");
         if(button.buttonClick) button.buttonClick.Play();
         fadeObject.SetActive(true);
         var fadeMaterialColor = FadeMaterialColor;
-        _sceneLoading = true;
         yield return new WaitForSeconds(2);
         while (fadeMaterialColor.a < 1)
         {
