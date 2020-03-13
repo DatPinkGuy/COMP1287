@@ -11,11 +11,6 @@ public class SceneChanging : MonoBehaviour
     private Renderer FadeMaterial => fadeObject.GetComponent<Renderer>();
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject fadeObject;
-    public bool SceneLoading
-    {
-        get => _sceneLoading;
-        set => _sceneLoading = value;
-    }
     private Color FadeMaterialColor
     {
         get => FadeMaterial.material.color;
@@ -59,7 +54,6 @@ public class SceneChanging : MonoBehaviour
         }
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(button.levelNumber);
-        enabled = false;
     }
 
     private IEnumerator ChangeLevel()
@@ -77,7 +71,6 @@ public class SceneChanging : MonoBehaviour
         }
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        enabled = false;
     }
     private IEnumerator UndoFade()
     {

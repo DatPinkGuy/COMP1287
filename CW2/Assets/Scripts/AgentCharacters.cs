@@ -47,7 +47,6 @@ public class AgentCharacters : MonoBehaviour, IAgent
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
         meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         _agentAnimator = GetComponent<Animator>();
-        _agentAnimator.SetBool(AgentWalking, _walkingState);
         changeAnimation = IdleAnimation;
 
     }
@@ -55,18 +54,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     // Update is called once per frame
     void Update()
     {
-        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
-        {
-            if (Agent.hasPath) changeAnimation = MovingAnimation;
-            else if (changeAnimation == BuildingAnimation) {}
-            else changeAnimation = IdleAnimation;
-            changeAnimation();
-        }
-        else
-        {
-            changeAnimation = IdleAnimation;
-            changeAnimation();
-        }
+        SetAnimations();
         CheckStats();
         UseHealth();
         CheckIfOnLink();
@@ -91,7 +79,6 @@ public class AgentCharacters : MonoBehaviour, IAgent
         {
             gameObject.SetActive(false);
         }
-
         if (health > maxHealth) health = maxHealth;
         if (energy > maxEnergy) energy = maxEnergy;
     }
@@ -123,6 +110,22 @@ public class AgentCharacters : MonoBehaviour, IAgent
     private void ChangeEnergyBar(float value, float maxValue)
     {
         EnergyBarValue = value / maxValue;
+    }
+    
+    private void SetAnimations()
+    {
+        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
+        {
+            if (Agent.hasPath) changeAnimation = MovingAnimation;
+            else if (changeAnimation == BuildingAnimation) {}
+            else changeAnimation = IdleAnimation;
+            changeAnimation();
+        }
+        else
+        {
+            changeAnimation = IdleAnimation;
+            changeAnimation();
+        }
     }
 
     private void MovingAnimation()
