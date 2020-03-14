@@ -56,12 +56,13 @@ public class BuildingAndMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_endZone.GameEnd) return;
         if (OVRInput.GetDown(OVRInput.Button.Four)) ChangeCharacter();
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
+            _gameActive = true;
             DayNightSwitch();
-            _gameActive = !_endZone.GameEnd;
         }
         DayNightCycle();
         if (_chosenBuilding)

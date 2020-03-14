@@ -14,6 +14,8 @@ public class EndZone : MonoBehaviour
     private float Timer => _watchScript.Timer;
     private Watch _watchScript;
     private BuildingAndMovementScript _mainScript;
+    private ParticleSystem _particleSystem;
+    private AudioSource _audioSource;
     [SerializeField] private int requiredAgents;
     [SerializeField] private float[] completionTimes;
     [SerializeField] private int[] rewardLevels;
@@ -22,6 +24,7 @@ public class EndZone : MonoBehaviour
     [SerializeField] private Text text;
     [SerializeField] private String gameWon;
     [SerializeField] private String gameLost;
+    [SerializeField] private AudioClip[] winLoseSound;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> agentsInside;
 
@@ -30,6 +33,8 @@ public class EndZone : MonoBehaviour
     {
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
         _watchScript = FindObjectOfType<Watch>();
+        _particleSystem = canvas.GetComponent<ParticleSystem>();
+        _audioSource = canvas.GetComponent<AudioSource>();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         foreach (var image in starsForTime)
         {
@@ -48,6 +53,8 @@ public class EndZone : MonoBehaviour
         _gameEnd = true;
         _mainScript.GameActive = false;
         text.text = gameLost;
+        _audioSource.clip = winLoseSound[0];
+        _audioSource.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -95,6 +102,9 @@ public class EndZone : MonoBehaviour
                 _gameEnd = true;
                 _mainScript.GameActive = false;
                 text.text = gameWon;
+                _particleSystem.Play();
+                _audioSource.clip = winLoseSound[1];
+                _audioSource.Play();
                 StartCoroutine(GameWon());
             }
             else
@@ -102,6 +112,8 @@ public class EndZone : MonoBehaviour
                 _gameEnd = true;
                 _mainScript.GameActive = false;
                 text.text = gameLost;
+                _audioSource.clip = winLoseSound[0];
+                _audioSource.Play();
             }
         }
     }
