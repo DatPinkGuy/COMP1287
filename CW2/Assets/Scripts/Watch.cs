@@ -7,11 +7,11 @@ using OVRTouchSample;
 public class Watch : MonoBehaviour
 {
     [HideInInspector] public int woodCount;
-    [HideInInspector] public float timer;
     [HideInInspector] public int currency;
+    public float Timer { get; private set; }
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
-    private string Minutes => Mathf.Floor(timer / 60).ToString("00");
-    private string Seconds => Mathf.Floor(timer % 60).ToString("00");
+    private string Minutes => Mathf.Floor(Timer / 60).ToString("00");
+    private string Seconds => Mathf.Floor(Timer % 60).ToString("00");
     private BuildingAndMovementScript _mainScript;
     [SerializeField] private GameObject menuGameObject;
     [SerializeField] private GameObject bigMenuGameObject;
@@ -57,7 +57,7 @@ public class Watch : MonoBehaviour
     
     private void UpdateTimer()
     {
-        timer += Time.deltaTime;
+        Timer += Time.deltaTime;
         timerText.text = Minutes + ":" + Seconds;
     }
 }

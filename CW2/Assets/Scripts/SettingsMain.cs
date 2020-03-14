@@ -32,10 +32,4 @@ public class SettingsMain : MonoBehaviour
         OvrPlayerController.Acceleration = SpeedSettings;
         OvrPlayerController.RotationAmount = RotationSettings;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

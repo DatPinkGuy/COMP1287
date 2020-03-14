@@ -7934,6 +7934,16 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1469451816}
+    - target: {fileID: 8533165945016320606, guid: 49ffd3713de36b2478219088663758f0,
+        type: 3}
+      propertyPath: completionTimes.Array.data[0]
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8533165945016320606, guid: 49ffd3713de36b2478219088663758f0,
+        type: 3}
+      propertyPath: completionTimes.Array.data[1]
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 8533165945016320607, guid: 49ffd3713de36b2478219088663758f0,
         type: 3}
       propertyPath: m_CastShadows

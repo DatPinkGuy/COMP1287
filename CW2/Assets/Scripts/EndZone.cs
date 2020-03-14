@@ -10,7 +10,7 @@ public class EndZone : MonoBehaviour
 {
     private bool _gameEnd;
     private int _aliveAgents;
-    private float Timer => _watchScript.timer;
+    private float Timer => _watchScript.Timer;
     private Watch _watchScript;
     private BuildingAndMovementScript _mainScript;
     [SerializeField] private int requiredAgents;

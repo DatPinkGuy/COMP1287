@@ -99,19 +99,19 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void ChangeCharacter()
     {
-        if(_currentAgent) CurrentAgentScript.meshRenderer.material.DisableKeyword("_EMISSION");
+        if(_currentAgent) CurrentAgentScript.MeshRenderer.material.DisableKeyword("_EMISSION");
         _agentIndex++;
         if (_agentIndex <= agents.Count)
         {
             _currentAgent = agents[_agentIndex-1];
-            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
+            CurrentAgentScript.MeshRenderer.material.EnableKeyword("_EMISSION");
         }
         else if (_agentIndex == agents.Count+1) _currentAgent = null;
         else
         {
             _agentIndex = 1;
             _currentAgent = agents[_agentIndex-1];
-            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
+            CurrentAgentScript.MeshRenderer.material.EnableKeyword("_EMISSION");
         }
         
     }

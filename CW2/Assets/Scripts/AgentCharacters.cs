@@ -16,7 +16,6 @@ public class AgentCharacters : MonoBehaviour, IAgent
     public float maxHealth = 100;
     public float maxEnergy = 100;
     public float agentSpeed;
-    public Renderer meshRenderer;
     private BuildingAndMovementScript _mainScript;
     private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
     private bool _walkingState;
@@ -25,6 +24,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     private static readonly int AgentBuilding = Animator.StringToHash("Building");
     private NavMeshAgent _navMeshAgent; 
     private Animator _agentAnimator;
+    public Renderer MeshRenderer { get; private set; }
     [HideInInspector] public Action changeAnimation;
     [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;
@@ -45,7 +45,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     void Start()
     {
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
-        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        MeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         _agentAnimator = GetComponent<Animator>();
         changeAnimation = IdleAnimation;
 
