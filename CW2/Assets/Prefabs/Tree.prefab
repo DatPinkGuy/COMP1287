@@ -96,7 +96,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neededAmount: 50
   currentAmount: 0
-  buildSpeed: 15
+  buildSpeed: 10
+  energyUse: 10
   woodAmount: 50
   agents: []
   buildingAgents: []

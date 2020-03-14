@@ -255,6 +255,7 @@ MonoBehaviour:
   neededAmount: 100
   currentAmount: 0
   buildSpeed: 10
+  energyUse: 10
   neededWood: 50
   materials:
   - {fileID: 2100000, guid: fdc089cf9750d774b9c67c11d5d2aabd, type: 2}

@@ -9,8 +9,9 @@ public class BuildingInfo : MonoBehaviour
 {
     [Header("Building Information")]
     public float neededAmount = 100f;
-    public float currentAmount = 0f;
+    public float currentAmount;
     public float buildSpeed = 10f;
+    public float energyUse;
     public Collider ObjectCollider => GetComponent<Collider>();
     public Transform ParentTransform => transform.parent;
     public Transform ThisTransform => gameObject.transform;
@@ -18,9 +19,9 @@ public class BuildingInfo : MonoBehaviour
     public bool Built => neededAmount <= currentAmount;
     private OffMeshLink OffMeshLink => GetComponent<OffMeshLink>();
     private Watch _watchScript;
-    private bool _removedWood;
     private AudioSource _audioSource;
     private float _soundTimer;
+    private int _currentAmountInt;
     [SerializeField] private int neededWood;
     [SerializeField] private Material[] materials;
     [HideInInspector] public List<AgentCharacters> agents;
@@ -69,7 +70,7 @@ public class BuildingInfo : MonoBehaviour
     {
         if (Built) return;
         if (buildingAgents.Count <= 0) return;
-        if (_watchScript.woodCount < neededWood) return;
+        if (_watchScript.woodCount <= 0) return;
         _soundTimer += Time.deltaTime;
         if (_soundTimer > 1f)
         {
@@ -88,24 +89,22 @@ public class BuildingInfo : MonoBehaviour
     {
         if (Built)
         {
-            RemoveWood();
             ObjectMaterial.material = materials[0];
             OffMeshLink.enabled = true;
             return;
         }
         if (buildingAgents.Count == 0) return;
-        if (!_removedWood && _watchScript.woodCount >= neededWood)
+        if (_watchScript.woodCount > 0)
         {
             BuildingProcess();
         }
-        
     }
 
     private void UseAgentEnergy()
     {
         foreach (var agent in buildingAgents)
         {
-            agent.UseEnergy();
+            agent.energy -= energyUse * Time.deltaTime;
         }
     }
     
@@ -113,19 +112,19 @@ public class BuildingInfo : MonoBehaviour
     {
         UseAgentEnergy();
         currentAmount += (buildSpeed*Time.deltaTime) * buildingAgents.Count;
+        var percentage = neededWood / neededAmount * currentAmount;
+        var percentageInt = (int) percentage;
+        if (_currentAmountInt == percentageInt) return;
+        Debug.Log("Percentage: "  + percentage);
+        Debug.Log("PercentageInt: "  +percentageInt);
+        _currentAmountInt = percentageInt;
+        _watchScript.woodCount -= 1;
+        _watchScript.UpdateWood();
     }
 
     public void MaterialChange()
     {
         ObjectMaterial.material = materials[1];
-    }
-
-    private void RemoveWood()
-    {
-        if (_removedWood) return;
-        _watchScript.woodCount -= neededWood;
-        _watchScript.UpdateWood();
-        _removedWood = true;
     }
 
     private void CheckAgents()

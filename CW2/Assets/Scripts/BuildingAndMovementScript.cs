@@ -13,7 +13,6 @@ public class BuildingAndMovementScript : MonoBehaviour
     public enum Cycle { Day, Night }
     public Cycle cycle;
     public Camera centerCamera;
-    private bool _gameActive;
     private BuildingInfo _chosenBuilding;
     private NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
@@ -27,28 +26,21 @@ public class BuildingAndMovementScript : MonoBehaviour
     private int _agentIndex;
     private EndZone _endZone;
     private AgentCharacters CurrentAgentScript => _currentAgent.GetComponent<AgentCharacters>();
-    public bool GameActive
-    {
-        get => _gameActive;
-        set => _gameActive = value;
-    }
-
+    public bool GameActive { get; set; }
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private List<NavMeshAgent> agents;
-    [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
 
     // Start is called before the first frame update
     void Start()
     {
-        _gameActive = false;
+        GameActive = false;
         _layerMask = ~_layerMask;
         _sunMoon = FindObjectOfType<SunMoon>();
         _laserPointer = FindObjectOfType<LaserPointer>();
         _endZone = FindObjectOfType<EndZone>();
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
-        agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
         cycle = Cycle.Night;
     }
@@ -61,7 +53,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
-            _gameActive = true;
+            GameActive = true;
             DayNightSwitch();
         }
         DayNightCycle();
@@ -170,11 +162,6 @@ public class BuildingAndMovementScript : MonoBehaviour
                 _sunMoon.ChangeToSun();
                 break;
             case Cycle.Night:
-                foreach (var agent in agentCharacter)
-                {
-                    agent.health += agent.healthUsage * Time.deltaTime;
-                }
-
                 foreach (var agent in agents)
                 {
                     agent.enabled = false;

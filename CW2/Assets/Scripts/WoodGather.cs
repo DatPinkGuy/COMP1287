@@ -6,8 +6,9 @@ using UnityEngine;
 public class WoodGather : MonoBehaviour
 {
     public float neededAmount = 50f;
-    public float currentAmount = 0f;
+    public float currentAmount;
     public float buildSpeed = 10f;
+    public float energyUse;
     public int woodAmount;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
@@ -73,7 +74,7 @@ public class WoodGather : MonoBehaviour
     {
         foreach (var agent in buildingAgents)
         {
-            agent.UseEnergy();
+            agent.energy -= energyUse * Time.deltaTime;
         }
     }
 

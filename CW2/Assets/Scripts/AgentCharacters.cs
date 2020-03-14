@@ -26,9 +26,8 @@ public class AgentCharacters : MonoBehaviour, IAgent
     private Animator _agentAnimator;
     public Renderer MeshRenderer { get; private set; }
     [HideInInspector] public Action changeAnimation;
-    [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;
-    [HideInInspector] public bool buildingState = false;
+    [HideInInspector] public bool buildingState;
     [SerializeField] private Image healthImage;
     [SerializeField] private Image energyImage;
     [SerializeField] private Canvas canvasBars;
@@ -48,26 +47,19 @@ public class AgentCharacters : MonoBehaviour, IAgent
         MeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         _agentAnimator = GetComponent<Animator>();
         changeAnimation = IdleAnimation;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetAnimations();
+        SetAnimations(); //As this method already checks for Day/Night, UseHealth is used here
         CheckStats();
-        UseHealth();
         CheckIfOnLink();
         RotateCanvas();
         ChangeHealthBar(health, maxHealth);
         ChangeEnergyBar(energy, maxEnergy);
     }
-
-    public void UseEnergy()
-    {
-        energy -= energyUsage * Time.deltaTime;
-    }
-
+    
     public void UseHealth()
     {
         health -= healthUsage * Time.deltaTime;
@@ -116,6 +108,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     {
         if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
         {
+            UseHealth();
             if (Agent.hasPath) changeAnimation = MovingAnimation;
             else if (changeAnimation == BuildingAnimation) {}
             else changeAnimation = IdleAnimation;

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RestingZone : MonoBehaviour
 {
+    public float energyReplenish;
     private BuildingAndMovementScript _mainScript;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> restingAgents;
@@ -44,7 +45,7 @@ public class RestingZone : MonoBehaviour
         if (_mainScript.cycle != BuildingAndMovementScript.Cycle.Night) return;
         foreach (var agent in agents)
         {
-            agent.energy += agent.energyUsage * Time.deltaTime;
+            agent.energy += energyReplenish * Time.deltaTime;
         }
     }
 }
