@@ -18,12 +18,6 @@ public class Settings : SettingsMain
         rotationSlider.value = RotationSettings;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SnapRotation(bool isSnapped)
     {
         OvrPlayerController.SnapRotation = isSnapped;

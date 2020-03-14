@@ -20,17 +20,10 @@ public class SceneChanging : MonoBehaviour
 
     private void Start()
     {
-        if (_sceneLoading)
-        {
-            var fadeMaterialColor = FadeMaterial.material.color;
-            fadeMaterialColor.a = 1;
-            FadeMaterialColor = fadeMaterialColor;
-            StartCoroutine(UndoFade());
-        }
-        else
-        {
-            fadeObject.SetActive(false);
-        }
+        var fadeMaterialColor = FadeMaterial.material.color;
+        fadeMaterialColor.a = 1;
+        FadeMaterialColor = fadeMaterialColor;
+        StartCoroutine(UndoFade());
     }
 
     public IEnumerator ChangeLevel(SceneButton button)

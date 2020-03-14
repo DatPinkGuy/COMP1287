@@ -24,13 +24,15 @@ public class BuildingAndMovementScript : MonoBehaviour
     private int _layerMask = 1 << 8;
     private Transform HandTransform => rightHand.transform;
     private LaserPointer _laserPointer;
-    private int _agentIndex = 0;
+    private int _agentIndex;
+    private EndZone _endZone;
     private AgentCharacters CurrentAgentScript => _currentAgent.GetComponent<AgentCharacters>();
     public bool GameActive
     {
         get => _gameActive;
         set => _gameActive = value;
     }
+
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
     [SerializeField] private List<NavMeshAgent> agents;
@@ -44,6 +46,7 @@ public class BuildingAndMovementScript : MonoBehaviour
         _layerMask = ~_layerMask;
         _sunMoon = FindObjectOfType<SunMoon>();
         _laserPointer = FindObjectOfType<LaserPointer>();
+        _endZone = FindObjectOfType<EndZone>();
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
         agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
@@ -57,8 +60,8 @@ public class BuildingAndMovementScript : MonoBehaviour
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
-            _gameActive = true;
             DayNightSwitch();
+            _gameActive = !_endZone.GameEnd;
         }
         DayNightCycle();
         if (_chosenBuilding)

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class EndZone : MonoBehaviour
 {
+    public bool GameEnd => _gameEnd;
     private bool _gameEnd;
     private int _aliveAgents;
     private float Timer => _watchScript.Timer;
@@ -45,6 +46,7 @@ public class EndZone : MonoBehaviour
         CheckAgentsInside();
         if (_aliveAgents != 0) return;
         _gameEnd = true;
+        _mainScript.GameActive = false;
         text.text = gameLost;
     }
 
@@ -90,6 +92,7 @@ public class EndZone : MonoBehaviour
         {
             if (_aliveAgents >= requiredAgents)
             {
+                _gameEnd = true;
                 _mainScript.GameActive = false;
                 text.text = gameWon;
                 StartCoroutine(GameWon());
@@ -97,6 +100,7 @@ public class EndZone : MonoBehaviour
             else
             {
                 _gameEnd = true;
+                _mainScript.GameActive = false;
                 text.text = gameLost;
             }
         }
