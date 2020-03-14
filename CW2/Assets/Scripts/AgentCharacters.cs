@@ -19,7 +19,7 @@ public class AgentCharacters : MonoBehaviour, IAgent
     public Renderer meshRenderer;
     private BuildingAndMovementScript _mainScript;
     private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
-    private bool _walkingState = false;
+    private bool _walkingState;
     private bool _resetPath;
     private static readonly int AgentWalking = Animator.StringToHash("Walking");
     private static readonly int AgentBuilding = Animator.StringToHash("Building");

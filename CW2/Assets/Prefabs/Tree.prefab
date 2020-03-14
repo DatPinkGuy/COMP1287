@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   neededAmount: 50
   currentAmount: 0
-  buildSpeed: 10
+  buildSpeed: 15
   woodAmount: 50
   agents: []
   buildingAgents: []
@@ -111,7 +111,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 600, y: 1631.6954, z: 600}
+  m_Size: {x: 550, y: 1631.6954, z: 550}
   m_Center: {x: 0.00048828125, y: 3.0987546, z: 46.6}
 --- !u!82 &7407569050073328007
 AudioSource:
