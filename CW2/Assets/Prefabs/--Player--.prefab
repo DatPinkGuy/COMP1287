@@ -3728,7 +3728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   woodCount: 0
-  timer: 0
   currency: 0
   menuGameObject: {fileID: 6222148650155698291}
   bigMenuGameObject: {fileID: 6222148651168319254}
@@ -7180,7 +7179,6 @@ MonoBehaviour:
   centerCamera: {fileID: 6222148651192075783}
   rightHand: {fileID: 6222148650058808802}
   agents: []
-  agentCharacter: []
   buildings: []
 --- !u!114 &6222148650752226281
 MonoBehaviour:
@@ -7541,6 +7539,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6222148650827674350}
         m_MethodName: ChangeLevelStart
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6712361757956007546}
+        m_MethodName: LoadRestartCurrency
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9831,6 +9840,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6222148651311512582}
         m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7708161230698693872}
+        m_MethodName: SaveSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

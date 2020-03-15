@@ -115,8 +115,6 @@ public class BuildingInfo : MonoBehaviour
         var percentage = neededWood / neededAmount * currentAmount;
         var percentageInt = (int) percentage;
         if (_currentAmountInt == percentageInt) return;
-        Debug.Log("Percentage: "  + percentage);
-        Debug.Log("PercentageInt: "  +percentageInt);
         _currentAmountInt = percentageInt;
         _watchScript.woodCount -= 1;
         _watchScript.UpdateWood();

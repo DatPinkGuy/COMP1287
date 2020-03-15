@@ -148,6 +148,8 @@ public class EndZone : MonoBehaviour
             }
         }
         _watchScript.UpdateCurrency();
+        _watchScript.LevelStartCurrency = _watchScript.currency;
+        SaveSystem.SaveCurrency(_watchScript);
         enabled = false;
         yield return null;
     }

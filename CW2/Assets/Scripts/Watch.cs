@@ -8,6 +8,7 @@ public class Watch : MonoBehaviour
 {
     [HideInInspector] public int woodCount;
     [HideInInspector] public int currency;
+    public int LevelStartCurrency { get; set; }
     public float Timer { get; private set; }
     private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     private string Minutes => Mathf.Floor(Timer / 60).ToString("00");
@@ -22,8 +23,18 @@ public class Watch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var data = SaveSystem.LoadCurrency();
+        if (data != null)
+        {
+            LevelStartCurrency = data.currencyAmountRestart;
+            currency = data.currencyAmount;
+        }
+        if (LevelStartCurrency > currency) currency = LevelStartCurrency;
+        else LevelStartCurrency = currency;
+        SaveSystem.SaveCurrency(this);
         currencyText.text = currency.ToString();
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        UpdateCurrency();
     }
 
     // Update is called once per frame

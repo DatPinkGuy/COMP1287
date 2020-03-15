@@ -14,7 +14,12 @@ public class UpgradeMain : MonoBehaviour
         watchScript = FindObjectOfType<Watch>();
     }
 
-    public virtual void UseUpgrade()
+    public virtual void CheckUpgrade()
+    {
+        
+    }
+
+    public virtual void ApplyUpgrade()
     {
         
     }

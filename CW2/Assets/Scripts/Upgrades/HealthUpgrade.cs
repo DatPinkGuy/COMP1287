@@ -15,13 +15,18 @@ public class HealthUpgrade : UpgradeMain
     {
         watchScript = FindObjectOfType<Watch>();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
-        ObjectMaterial.material = !_bought ? materials[0] : materials[1];
+        if(_bought) ApplyUpgrade();
     }
-    
-    public override void UseUpgrade()
+
+    public override void CheckUpgrade()
     {
         if (_bought) return;
         if (watchScript.currency < price) return;
+        ApplyUpgrade();
+    }
+
+    public override void ApplyUpgrade()
+    {
         foreach (var agent in agents)
         {
             agent.maxHealth += healthIncrease;

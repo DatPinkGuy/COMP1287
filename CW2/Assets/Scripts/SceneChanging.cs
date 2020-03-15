@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SceneChanging : MonoBehaviour
 {
     public Action buttonPress;
+    public int CurrentLevel => SceneManager.GetActiveScene().buildIndex;
     private static bool _sceneLoading;
     private Renderer FadeMaterial => fadeObject.GetComponent<Renderer>();
     [SerializeField] private AudioSource audioSource;
@@ -48,6 +49,27 @@ public class SceneChanging : MonoBehaviour
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(button.levelNumber);
     }
+    
+    public IEnumerator ChangeLevel(int level)
+    {
+        if (_sceneLoading) yield break;
+        _sceneLoading = true;
+        fadeObject.SetActive(true);
+        var fadeMaterialColor = FadeMaterialColor;
+        yield return new WaitForSeconds(2);
+        while (fadeMaterialColor.a < 1)
+        {
+            if (audioSource)
+            {
+                audioSource.volume -= 1f * Time.deltaTime;
+            }
+            fadeMaterialColor.a += 1f * Time.deltaTime;
+            FadeMaterialColor = fadeMaterialColor;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(level);
+    }
 
     private IEnumerator ChangeLevel()
     {
@@ -84,5 +106,10 @@ public class SceneChanging : MonoBehaviour
     public void RestartButton()
     {
         StartCoroutine(ChangeLevel());
+    }
+
+    public void ChangeLevelUi(int level)
+    {
+        StartCoroutine(ChangeLevel(level));
     }
 }
