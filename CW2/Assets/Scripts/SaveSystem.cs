@@ -84,6 +84,5 @@ public static class SaveSystem
          fileStream.SetLength(0);
          fileStream.Close();
       }
-      
    }
 }

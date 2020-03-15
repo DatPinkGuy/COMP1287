@@ -32,7 +32,7 @@ public class SettingsMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(!SettingsLoaded) LoadSettings(); //settings aren't being reset due to game starting with New/Load scene
+        if (!SettingsLoaded) LoadSettings();
         OvrPlayerController.SnapRotation = SnapSettings;
         OvrPlayerController.Acceleration = SpeedSettings;
         OvrPlayerController.RotationAmount = RotationSettings;
@@ -51,14 +51,6 @@ public class SettingsMain : MonoBehaviour
         SpeedSettings = data.speedSetting;
         RotationSettings = data.rotateSetting;
         SettingsLoaded = true;
-    }
-
-    public void LoadRestartCurrency()
-    {
-        var watch = FindObjectOfType<Watch>();
-        var data = SaveSystem.LoadCurrency();
-        watch.currency = data.currencyAmountRestart;
-        SaveSystem.SaveCurrency(watch);
     }
 
     public void NewGame()

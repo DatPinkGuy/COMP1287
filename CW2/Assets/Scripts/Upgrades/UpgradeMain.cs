@@ -5,14 +5,11 @@ using UnityEngine;
 
 public class UpgradeMain : MonoBehaviour
 {
+    public bool boughtRestart;
+    public bool bought;
     public int upgradeNumber;
     public Material[] materials;
     public Watch watchScript;
-
-    private void Start()
-    {
-        watchScript = FindObjectOfType<Watch>();
-    }
 
     public virtual void CheckUpgrade()
     {
@@ -22,5 +19,10 @@ public class UpgradeMain : MonoBehaviour
     public virtual void ApplyUpgrade()
     {
         
+    }
+
+    protected void FindClasses()
+    {
+        watchScript = FindObjectOfType<Watch>();
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class RestartButton : MonoBehaviour
 {
@@ -12,9 +8,9 @@ public class RestartButton : MonoBehaviour
     {
         _sceneChanging = FindObjectOfType<SceneChanging>();
     }
+    
     public void ChangeLevelStart()
     {
         _sceneChanging.RestartButton();
     }
-    
 }

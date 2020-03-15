@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class SceneChanging : MonoBehaviour
 {
     public Action buttonPress;
-    public int CurrentLevel => SceneManager.GetActiveScene().buildIndex;
     private static bool _sceneLoading;
     private Renderer FadeMaterial => fadeObject.GetComponent<Renderer>();
     [SerializeField] private AudioSource audioSource;
@@ -27,7 +26,7 @@ public class SceneChanging : MonoBehaviour
         StartCoroutine(UndoFade());
     }
 
-    public IEnumerator ChangeLevel(SceneButton button)
+    public IEnumerator ChangeLevel(SceneButton button) //Starts when buttons in metro are pressed
     {
         if (_sceneLoading) yield break;
         _sceneLoading = true;
@@ -49,8 +48,8 @@ public class SceneChanging : MonoBehaviour
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(button.levelNumber);
     }
-    
-    public IEnumerator ChangeLevel(int level)
+
+    private IEnumerator ChangeLevel(int level) //Starts when New or Load ui buttons are pressed
     {
         if (_sceneLoading) yield break;
         _sceneLoading = true;
@@ -71,12 +70,13 @@ public class SceneChanging : MonoBehaviour
         SceneManager.LoadScene(level);
     }
 
-    private IEnumerator ChangeLevel()
+    private IEnumerator ChangeLevel() //Starts when Restarts ui button is pressed
     {
         if (_sceneLoading) yield break;
         _sceneLoading = true;
         fadeObject.SetActive(true);
         var fadeMaterialColor = FadeMaterialColor;
+        LoadRestartCurrency(); //Says expensive method invocation even though called rarely(once per scene).
         yield return new WaitForSeconds(2);
         while (fadeMaterialColor.a < 1)
         {
@@ -108,8 +108,18 @@ public class SceneChanging : MonoBehaviour
         StartCoroutine(ChangeLevel());
     }
 
-    public void ChangeLevelUi(int level)
+    public void ChangeLevelUiButton(int level)
     {
         StartCoroutine(ChangeLevel(level));
+    }
+
+    private void LoadRestartCurrency()
+    {
+        var watch = FindObjectOfType<Watch>();
+        var endZone = FindObjectOfType<EndZone>();
+        var data = SaveSystem.LoadCurrency();
+        if (endZone.GameEnd) watch.LevelStartCurrency = watch.currency;
+        else watch.currency = data.currencyAmountRestart;
+        SaveSystem.SaveCurrency(watch);
     }
 }

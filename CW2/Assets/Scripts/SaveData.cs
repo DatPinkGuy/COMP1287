@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
 
 [Serializable]
 public class SaveData
 {
-    public int level;
     public int currencyAmountRestart;
     public int currencyAmount;
     public bool[] boughtRestart;
@@ -32,10 +27,5 @@ public class SaveData
         snapSetting = settings.SnapSettingsPublic;
         speedSetting = settings.SpeedSettingsPublic;
         rotateSetting = settings.RotationSettingsPublic;
-    }
-
-    public SaveData(SceneChanging sceneChanging)
-    {
-        level = sceneChanging.CurrentLevel;
     }
 }

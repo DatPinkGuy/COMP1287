@@ -2259,7 +2259,6 @@ Transform:
   m_LocalPosition: {x: 40.52, y: 2.0221214, z: -0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5049023928070596260}
   - {fileID: 4017704110446914944}
   m_Father: {fileID: 6458504785191754916}
   m_RootOrder: 0
@@ -5412,7 +5411,7 @@ Transform:
   - {fileID: 4866634311568264961}
   - {fileID: 7610691518699155888}
   m_Father: {fileID: 2914354321911206534}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6924583251018009592
 GameObject:
@@ -5748,6 +5747,7 @@ MonoBehaviour:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
   watchScript: {fileID: 0}
+  endZone: {fileID: 0}
   price: 0
   healthIncrease: 20
   agents: []
@@ -6163,36 +6163,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &7442465060370805274
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5049023928070596260}
-  m_Layer: 0
-  m_Name: transform1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 119
-  m_IsActive: 1
---- !u!4 &5049023928070596260
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442465060370805274}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2914354321911206534}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7497903442248091470
 GameObject:
   m_ObjectHideFlags: 0
@@ -6767,6 +6737,7 @@ MonoBehaviour:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 2100000, guid: 5d2b36679c475464e840c330f611c9fe, type: 2}
   watchScript: {fileID: 0}
+  endZone: {fileID: 0}
   price: 10
   energyIncrease: 20
   agents: []
