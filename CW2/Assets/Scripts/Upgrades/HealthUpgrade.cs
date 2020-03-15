@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HealthUpgrade : UpgradeMain
 {
-    private static bool _bought;
     private MeshRenderer ObjectMaterial => GetComponent<MeshRenderer>();
     [SerializeField] private int price;
     [SerializeField] private int healthIncrease;
@@ -13,28 +12,30 @@ public class HealthUpgrade : UpgradeMain
     // Start is called before the first frame update
     void Start()
     {
-        mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        FindClasses();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
-        ObjectMaterial.material = !_bought ? materials[0] : materials[1];
+        boughtRestart = bought;
+        if(bought) ApplyUpgrade();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void CheckUpgrade()
     {
-        
+        if (bought) return;
+        if (watchScript.currency < price) return;
+        ApplyUpgrade();
     }
 
-    public override void UseUpgrade()
+    public override void ApplyUpgrade()
     {
-        if (_bought) return;
-        if (mainScript.currency < price) return;
         foreach (var agent in agents)
         {
             agent.maxHealth += healthIncrease;
             agent.health += healthIncrease;
         }
-        _bought = true;
-        mainScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];
+        if (bought) return;
+        watchScript.currency -= price;
+        bought = true;
+        watchScript.UpdateCurrency();
     }
 }

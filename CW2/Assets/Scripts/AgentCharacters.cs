@@ -16,17 +16,18 @@ public class AgentCharacters : MonoBehaviour, IAgent
     public float maxHealth = 100;
     public float maxEnergy = 100;
     public float agentSpeed;
-    public Renderer meshRenderer;
     private BuildingAndMovementScript _mainScript;
     private NavMeshAgent Agent => GetComponent<NavMeshAgent>();
-    private bool _walkingState = false;
+    private bool _walkingState;
     private bool _resetPath;
     private static readonly int AgentWalking = Animator.StringToHash("Walking");
+    private static readonly int AgentBuilding = Animator.StringToHash("Building");
     private NavMeshAgent _navMeshAgent; 
     private Animator _agentAnimator;
+    public Renderer MeshRenderer { get; private set; }
     [HideInInspector] public Action changeAnimation;
-    [HideInInspector] public float energyUsage = 10f;
     [HideInInspector] public float healthUsage = 1f;
+    [HideInInspector] public bool buildingState;
     [SerializeField] private Image healthImage;
     [SerializeField] private Image energyImage;
     [SerializeField] private Canvas canvasBars;
@@ -43,40 +44,22 @@ public class AgentCharacters : MonoBehaviour, IAgent
     void Start()
     {
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
-        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        MeshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         _agentAnimator = GetComponent<Animator>();
-        _agentAnimator.SetBool(AgentWalking, _walkingState);
         changeAnimation = IdleAnimation;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
-        {
-            if (Agent.hasPath) changeAnimation = MovingAnimation;
-            else changeAnimation = IdleAnimation;
-            changeAnimation();
-        }
-        else
-        {
-            changeAnimation = IdleAnimation;
-            changeAnimation();
-        }
+        SetAnimations(); //As this method already checks for Day/Night, UseHealth is used here
         CheckStats();
-        UseHealth();
         CheckIfOnLink();
         RotateCanvas();
         ChangeHealthBar(health, maxHealth);
         ChangeEnergyBar(energy, maxEnergy);
     }
-
-    public void UseEnergy()
-    {
-        energy -= energyUsage * Time.deltaTime;
-    }
-
+    
     public void UseHealth()
     {
         health -= healthUsage * Time.deltaTime;
@@ -88,7 +71,6 @@ public class AgentCharacters : MonoBehaviour, IAgent
         {
             gameObject.SetActive(false);
         }
-
         if (health > maxHealth) health = maxHealth;
         if (energy > maxEnergy) energy = maxEnergy;
     }
@@ -121,11 +103,30 @@ public class AgentCharacters : MonoBehaviour, IAgent
     {
         EnergyBarValue = value / maxValue;
     }
+    
+    private void SetAnimations()
+    {
+        if (_mainScript.cycle == BuildingAndMovementScript.Cycle.Day)
+        {
+            UseHealth();
+            if (Agent.hasPath) changeAnimation = MovingAnimation;
+            else if (changeAnimation == BuildingAnimation) {}
+            else changeAnimation = IdleAnimation;
+            changeAnimation();
+        }
+        else
+        {
+            changeAnimation = IdleAnimation;
+            changeAnimation();
+        }
+    }
 
     private void MovingAnimation()
     {
+        buildingState = false;
         _walkingState = true;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _agentAnimator.SetBool(AgentBuilding,buildingState);
         _resetPath = false;
     }
 
@@ -137,6 +138,21 @@ public class AgentCharacters : MonoBehaviour, IAgent
             _resetPath = true;
         }
         _walkingState = false;
+        buildingState = false;
         _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _agentAnimator.SetBool(AgentBuilding,buildingState);
+    }
+
+    public void BuildingAnimation()
+    {
+        buildingState = true;
+        _walkingState = false;
+        _agentAnimator.SetBool(AgentWalking,_walkingState);
+        _agentAnimator.SetBool(AgentBuilding,buildingState);
+    }
+
+    public void ResetBuildingAnimation()
+    {
+        buildingState = false;
     }
 }

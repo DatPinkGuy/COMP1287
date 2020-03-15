@@ -34,7 +34,7 @@ public class UpgradeManager : MonoBehaviour
                 if (upgrade.upgradeNumber == int.Parse(buttonManager.textField.text ?? throw new IndexOutOfRangeException()))
                 {
                     buttonManager.textField.text = null;
-                    upgrade.UseUpgrade();
+                    upgrade.CheckUpgrade();
                     break;
                 }
             }

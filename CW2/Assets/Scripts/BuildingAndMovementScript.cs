@@ -6,7 +6,6 @@ using OVRTouchSample;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BuildingAndMovementScript : MonoBehaviour
@@ -14,10 +13,6 @@ public class BuildingAndMovementScript : MonoBehaviour
     public enum Cycle { Day, Night }
     public Cycle cycle;
     public Camera centerCamera;
-    [HideInInspector] public int woodCount;
-    [HideInInspector] public float timer;
-    [HideInInspector] public bool gameActive;
-    [HideInInspector] public int currency;
     private BuildingInfo _chosenBuilding;
     private NavMeshAgent _currentAgent;
     private SunMoon _sunMoon;
@@ -27,35 +22,25 @@ public class BuildingAndMovementScript : MonoBehaviour
     private Transform _buildingParent;
     private int _layerMask = 1 << 8;
     private Transform HandTransform => rightHand.transform;
-    private Vector3 HandRotation => leftHand.transform.rotation.eulerAngles;
     private LaserPointer _laserPointer;
-    private int _agentIndex = 0;
+    private int _agentIndex;
+    private EndZone _endZone;
     private AgentCharacters CurrentAgentScript => _currentAgent.GetComponent<AgentCharacters>();
-    private string Minutes => Mathf.Floor(timer / 60).ToString("00");
-    private string Seconds => Mathf.Floor(timer % 60).ToString("00");
-
+    public bool GameActive { get; set; }
     [Header("Serialized Objects")]
     [SerializeField] private Hand rightHand;
-    [SerializeField] private Hand leftHand;
-    [SerializeField] private GameObject menuGameObject;
-    [SerializeField] private GameObject bigMenuGameObject;
     [SerializeField] private List<NavMeshAgent> agents;
-    [SerializeField] private List<AgentCharacters> agentCharacter;
     [SerializeField] private List<BuildingInfo> buildings;
-    [SerializeField] private Text currencyText;
-    [SerializeField] private Text timerText;
-    [SerializeField] private Text woodText;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameActive = false;
-        currencyText.text = currency.ToString();
+        GameActive = false;
         _layerMask = ~_layerMask;
         _sunMoon = FindObjectOfType<SunMoon>();
         _laserPointer = FindObjectOfType<LaserPointer>();
+        _endZone = FindObjectOfType<EndZone>();
         agents.AddRange(FindObjectsOfType<NavMeshAgent>());
-        agentCharacter.AddRange(FindObjectsOfType<AgentCharacters>());
         buildings.AddRange(FindObjectsOfType<BuildingInfo>());
         cycle = Cycle.Night;
     }
@@ -63,12 +48,12 @@ public class BuildingAndMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        OpenMenu();
+        if (_endZone.GameEnd) return;
         if (OVRInput.GetDown(OVRInput.Button.Four)) ChangeCharacter();
         BuildingCharacterLogic();
         if (OVRInput.GetDown(OVRInput.Button.Three))
         {
-            gameActive = true;
+            GameActive = true;
             DayNightSwitch();
         }
         DayNightCycle();
@@ -77,7 +62,6 @@ public class BuildingAndMovementScript : MonoBehaviour
             MoveObjectToRaycast();
             PlaceObject();
         }
-        if(gameActive) UpdateTimer();
     }
     
     private void BuildingCharacterLogic()
@@ -111,19 +95,19 @@ public class BuildingAndMovementScript : MonoBehaviour
 
     private void ChangeCharacter()
     {
-        if(_currentAgent) CurrentAgentScript.meshRenderer.material.DisableKeyword("_EMISSION");
+        if(_currentAgent) CurrentAgentScript.MeshRenderer.material.DisableKeyword("_EMISSION");
         _agentIndex++;
         if (_agentIndex <= agents.Count)
         {
             _currentAgent = agents[_agentIndex-1];
-            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
+            CurrentAgentScript.MeshRenderer.material.EnableKeyword("_EMISSION");
         }
         else if (_agentIndex == agents.Count+1) _currentAgent = null;
         else
         {
             _agentIndex = 1;
             _currentAgent = agents[_agentIndex-1];
-            CurrentAgentScript.meshRenderer.material.EnableKeyword("_EMISSION");
+            CurrentAgentScript.MeshRenderer.material.EnableKeyword("_EMISSION");
         }
         
     }
@@ -178,11 +162,6 @@ public class BuildingAndMovementScript : MonoBehaviour
                 _sunMoon.ChangeToSun();
                 break;
             case Cycle.Night:
-                foreach (var agent in agentCharacter)
-                {
-                    agent.health += agent.healthUsage * Time.deltaTime;
-                }
-
                 foreach (var agent in agents)
                 {
                     agent.enabled = false;
@@ -192,34 +171,6 @@ public class BuildingAndMovementScript : MonoBehaviour
         }
     }
 
-    private void OpenMenu()
-    {
-        if (HandRotation.z > 140 && HandRotation.z < 210 && HandRotation.x > 0 && HandRotation.x < 40 && !bigMenuGameObject.activeSelf)
-        {
-            menuGameObject.SetActive(true);
-        }
-        else
-        {
-            menuGameObject.SetActive(false);
-        }
-    }
-
-    public void UpdateCurrency()
-    {
-        currencyText.text = currency.ToString();
-    }
-
-    public void UpdateWood()
-    {
-        woodText.text = woodCount.ToString();
-    }
-    
-    private void UpdateTimer()
-    {
-        timer += Time.deltaTime;
-        timerText.text = Minutes + ":" + Seconds;
-    }
-    
     IEnumerator AgentMovement()
     {
         if (NavMesh.SamplePosition(_hit.point, out _navMeshHit, 50, NavMesh.AllAreas))

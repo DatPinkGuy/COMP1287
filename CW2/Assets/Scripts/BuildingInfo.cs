@@ -9,18 +9,19 @@ public class BuildingInfo : MonoBehaviour
 {
     [Header("Building Information")]
     public float neededAmount = 100f;
-    public float currentAmount = 0f;
+    public float currentAmount;
     public float buildSpeed = 10f;
+    public float energyUse;
     public Collider ObjectCollider => GetComponent<Collider>();
     public Transform ParentTransform => transform.parent;
     public Transform ThisTransform => gameObject.transform;
     private MeshRenderer ObjectMaterial => gameObject.GetComponent<MeshRenderer>();
     public bool Built => neededAmount <= currentAmount;
     private OffMeshLink OffMeshLink => GetComponent<OffMeshLink>();
-    private BuildingAndMovementScript _mainScript;
-    private bool _removedWood;
+    private Watch _watchScript;
     private AudioSource _audioSource;
     private float _soundTimer;
+    private int _currentAmountInt;
     [SerializeField] private int neededWood;
     [SerializeField] private Material[] materials;
     [HideInInspector] public List<AgentCharacters> agents;
@@ -32,7 +33,7 @@ public class BuildingInfo : MonoBehaviour
         ObjectMaterial.material = materials[0];
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         OffMeshLink.enabled = false;
-        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _watchScript = FindObjectOfType<Watch>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -58,7 +59,7 @@ public class BuildingInfo : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        foreach (var agent in buildingAgents)
+        foreach (var agent in buildingAgents.ToList())
         {
             if (other.gameObject != agent.gameObject) continue;
             buildingAgents.Remove(agent);
@@ -69,11 +70,18 @@ public class BuildingInfo : MonoBehaviour
     {
         if (Built) return;
         if (buildingAgents.Count <= 0) return;
+        if (_watchScript.woodCount <= 0) return;
         _soundTimer += Time.deltaTime;
         if (_soundTimer > 1f)
         {
             _audioSource.Play();
             _soundTimer = 0;
+        }
+
+        foreach (var agent in buildingAgents.ToList())
+        {
+            agent.changeAnimation = agent.BuildingAnimation;
+            agent.changeAnimation();
         }
     }
 
@@ -81,24 +89,22 @@ public class BuildingInfo : MonoBehaviour
     {
         if (Built)
         {
-            RemoveWood();
             ObjectMaterial.material = materials[0];
             OffMeshLink.enabled = true;
             return;
         }
         if (buildingAgents.Count == 0) return;
-        if (!_removedWood && _mainScript.woodCount >= neededWood)
+        if (_watchScript.woodCount > 0)
         {
             BuildingProcess();
         }
-        
     }
 
     private void UseAgentEnergy()
     {
         foreach (var agent in buildingAgents)
         {
-            agent.UseEnergy();
+            agent.energy -= energyUse * Time.deltaTime;
         }
     }
     
@@ -106,6 +112,12 @@ public class BuildingInfo : MonoBehaviour
     {
         UseAgentEnergy();
         currentAmount += (buildSpeed*Time.deltaTime) * buildingAgents.Count;
+        var percentage = neededWood / neededAmount * currentAmount;
+        var percentageInt = (int) percentage;
+        if (_currentAmountInt == percentageInt) return;
+        _currentAmountInt = percentageInt;
+        _watchScript.woodCount -= 1;
+        _watchScript.UpdateWood();
     }
 
     public void MaterialChange()
@@ -113,18 +125,19 @@ public class BuildingInfo : MonoBehaviour
         ObjectMaterial.material = materials[1];
     }
 
-    private void RemoveWood()
-    {
-        if (_removedWood) return;
-        _mainScript.woodCount -= neededWood;
-        _mainScript.UpdateWood();
-        _removedWood = true;
-    }
-
     private void CheckAgents()
     {
-        if (Built || buildingAgents.Count == 0) return;
-        foreach (var agent in buildingAgents)
+        if (buildingAgents.Count == 0) return;
+        if (Built)
+        {
+            foreach (var agent in buildingAgents.ToList())
+            {
+                agent.changeAnimation = agent.ResetBuildingAnimation;
+                agent.changeAnimation();
+            }
+            return;
+        }
+        foreach (var agent in buildingAgents.ToList())
         {
             if (!agent.gameObject.activeSelf) buildingAgents.Remove(agent);
         }

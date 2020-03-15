@@ -106,5 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b62cb15279e9d4892ce03a0fe8df51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyReplenish: 5
   agents: []
   restingAgents: []

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnergyUpgrade : UpgradeMain
 {
-    
-    private bool _enoughCurrency;
-    private bool _bought;
     private MeshRenderer ObjectMaterial => GetComponent<MeshRenderer>();
     [SerializeField] private int price;
     [SerializeField] private int energyIncrease;
@@ -15,22 +12,30 @@ public class EnergyUpgrade : UpgradeMain
     // Start is called before the first frame update
     void Start()
     {
-        mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        FindClasses();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
-        ObjectMaterial.material = !_bought ? materials[0] : materials[1];
+        boughtRestart = bought;
+        if(bought) ApplyUpgrade();
     }
 
-    public override void UseUpgrade()
+    public override void CheckUpgrade()
     {
-        if (_bought) return;
-        if (mainScript.currency < price) return;
+        if (bought) return;
+        if (watchScript.currency < price) return;
+        ApplyUpgrade();
+    }
+    
+    public override void ApplyUpgrade()
+    {
         foreach (var agent in agents)
         {
             agent.maxEnergy += energyIncrease;
             agent.energy += energyIncrease;
         }
-        _bought = true;
-        mainScript.UpdateCurrency();
         ObjectMaterial.material = materials[1];
+        if (bought) return;
+        watchScript.currency -= price;
+        bought = true;
+        watchScript.UpdateCurrency();
     }
 }

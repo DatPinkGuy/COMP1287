@@ -6,19 +6,20 @@ using UnityEngine;
 public class WoodGather : MonoBehaviour
 {
     public float neededAmount = 50f;
-    public float currentAmount = 0f;
+    public float currentAmount;
     public float buildSpeed = 10f;
+    public float energyUse;
     public int woodAmount;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> buildingAgents;
-    private BuildingAndMovementScript _mainScript;
+    private Watch _watchScript;
     private AudioSource _audioSource;
     private float _soundTimer;
     // Start is called before the first frame update
     void Start()
     {
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
-        _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _watchScript = FindObjectOfType<Watch>();
         _audioSource = GetComponent<AudioSource>();
     }
 
@@ -56,6 +57,12 @@ public class WoodGather : MonoBehaviour
             _audioSource.Play();
             _soundTimer = 0;
         }
+        
+        foreach (var agent in buildingAgents)
+        {
+            agent.changeAnimation = agent.BuildingAnimation;
+            agent.changeAnimation();
+        }
     }
 
     private void CheckUse()
@@ -67,7 +74,7 @@ public class WoodGather : MonoBehaviour
     {
         foreach (var agent in buildingAgents)
         {
-            agent.UseEnergy();
+            agent.energy -= energyUse * Time.deltaTime;
         }
     }
 
@@ -75,8 +82,13 @@ public class WoodGather : MonoBehaviour
     {
         if (currentAmount >= neededAmount)
         {
-            _mainScript.woodCount += woodAmount;
-            _mainScript.UpdateWood();
+            _watchScript.woodCount += woodAmount;
+            _watchScript.UpdateWood();
+            foreach (var agent in buildingAgents)
+            {
+                agent.changeAnimation = agent.ResetBuildingAnimation;
+                agent.changeAnimation();
+            }
             gameObject.SetActive(false);
         }
     }

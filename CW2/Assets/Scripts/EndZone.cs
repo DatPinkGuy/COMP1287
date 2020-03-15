@@ -8,10 +8,14 @@ using UnityEngine.UI;
 
 public class EndZone : MonoBehaviour
 {
+    public bool GameEnd => _gameEnd;
     private bool _gameEnd;
     private int _aliveAgents;
-    private float Timer => _mainScript.timer;
+    private float Timer => _watchScript.Timer;
+    private Watch _watchScript;
     private BuildingAndMovementScript _mainScript;
+    private ParticleSystem _particleSystem;
+    private AudioSource _audioSource;
     [SerializeField] private int requiredAgents;
     [SerializeField] private float[] completionTimes;
     [SerializeField] private int[] rewardLevels;
@@ -20,6 +24,7 @@ public class EndZone : MonoBehaviour
     [SerializeField] private Text text;
     [SerializeField] private String gameWon;
     [SerializeField] private String gameLost;
+    [SerializeField] private AudioClip[] winLoseSound;
     [HideInInspector] public List<AgentCharacters> agents;
     [HideInInspector] public List<AgentCharacters> agentsInside;
 
@@ -27,6 +32,9 @@ public class EndZone : MonoBehaviour
     void Start()
     {
         _mainScript = FindObjectOfType<BuildingAndMovementScript>();
+        _watchScript = FindObjectOfType<Watch>();
+        _particleSystem = canvas.GetComponent<ParticleSystem>();
+        _audioSource = canvas.GetComponent<AudioSource>();
         agents.AddRange(FindObjectsOfType<AgentCharacters>());
         foreach (var image in starsForTime)
         {
@@ -43,7 +51,10 @@ public class EndZone : MonoBehaviour
         CheckAgentsInside();
         if (_aliveAgents != 0) return;
         _gameEnd = true;
+        _mainScript.GameActive = false;
         text.text = gameLost;
+        _audioSource.clip = winLoseSound[0];
+        _audioSource.Play();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,14 +99,21 @@ public class EndZone : MonoBehaviour
         {
             if (_aliveAgents >= requiredAgents)
             {
-                _mainScript.gameActive = false;
+                _gameEnd = true;
+                _mainScript.GameActive = false;
                 text.text = gameWon;
+                _particleSystem.Play();
+                _audioSource.clip = winLoseSound[1];
+                _audioSource.Play();
                 StartCoroutine(GameWon());
             }
             else
             {
                 _gameEnd = true;
+                _mainScript.GameActive = false;
                 text.text = gameLost;
+                _audioSource.clip = winLoseSound[0];
+                _audioSource.Play();
             }
         }
     }
@@ -110,12 +128,12 @@ public class EndZone : MonoBehaviour
     {
         if (Timer >= completionTimes.Last())
         {
-            _mainScript.currency += rewardLevels.Last();
+            _watchScript.currency += rewardLevels.Last();
             starsForTime.First().enabled = true;
         }
         else if (Timer <= completionTimes.First())
         {
-            _mainScript.currency += rewardLevels.First();
+            _watchScript.currency += rewardLevels.First();
             foreach (var image in starsForTime)
             {
                 image.enabled = true;
@@ -123,13 +141,15 @@ public class EndZone : MonoBehaviour
         }
         else
         {
-            _mainScript.currency += rewardLevels[rewardLevels.Length / 2];
+            _watchScript.currency += rewardLevels[rewardLevels.Length / 2];
             for (int i = 0; i < starsForTime.Length-1; i++)
             {
                 starsForTime[i].enabled = true;
             }
         }
-        _mainScript.UpdateCurrency();
+        _watchScript.UpdateCurrency();
+        _watchScript.LevelStartCurrency = _watchScript.currency;
+        SaveSystem.SaveCurrency(_watchScript);
         enabled = false;
         yield return null;
     }
